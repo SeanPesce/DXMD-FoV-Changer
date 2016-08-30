@@ -73,12 +73,6 @@ void injectHandFOVChanger(BYTE* new_btCodeAddr)
 	// Calculate the return jump..
 	dwHandFOVChangerJumpBack = (DWORD64)(btJmpCave + 0x16);
 
-	//@todo:test code, delete when done
-	std::ofstream writer("test.txt");
-	writer << "(DWORD64*)((DWORD64)&fp_FOV_modifier_CodeCave[0]): " << (DWORD64*)((DWORD64)&fp_FOV_Hands_modifier_CodeCave[0]) << std::endl;
-	writer.close();
-	//end of test code
-
 	::VirtualProtect((DWORD64*)((DWORD64)&fp_FOV_Hands_modifier_CodeCave[0]), 1000, PAGE_EXECUTE_READWRITE, &dwOldProtect);
 	//jmp dwHandFOVChangerJumpBack
 	*(DWORD64*)(&fp_FOV_Hands_modifier_CodeCave[104]) = dwHandFOVChangerJumpBack;

@@ -44,7 +44,7 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	injectHandFOVChanger((BYTE*)fp_Hands_FOV_modifier_Instruction);
 
 	Sleep(10);
-	*(float*)ptr_FOV_Modifier = current_Hands_FOV / (*(float*)ptr_fp_Hands_FOV_Base_Modifier);
+	*(float*)ptr_FOV_Modifier = (default_FOV_Modifier * ((float)initFOV)) / default_Hands_FOV;
 	if (*(float*)ptr_FOV_Modifier > 2.345) {
 		*(float*)ptr_FOV_Modifier = 2.345;
 	}else if (*(float*)ptr_FOV_Modifier < 0.1) {
@@ -84,6 +84,13 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 				if (enableBeeps == 1) {
 					Beep(523, 200);
 				}
+			}
+		}else if(GetAsyncKeyState(Reset_FOV_Key) & 1){
+			//Set both FoVs back to default game-supported settings
+			current_Hands_FOV = default_Hands_FOV;
+			*(float*)ptr_FOV_Modifier = default_FOV_Modifier;
+			if (enableBeeps == 1) {
+				Beep(523, 200);
 			}
 		}
 
@@ -157,12 +164,17 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 		std::stringstream hsDecreaseHandsFOV;
 		hsDecreaseHandsFOV << std::hex << keybind;
 		hsDecreaseHandsFOV >> Hands_FOV_Down_Key;
+		//Get "Reset FOV" keybind
+		GetPrivateProfileString("ResetFOV", "Key", "", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		std::stringstream hsResetFOV;
+		hsResetFOV << std::hex << keybind;
+		hsResetFOV >> Reset_FOV_Key;
 		//Get Default FOV
 		initFOV = GetPrivateProfileInt("DefaultFOV", "FOV", 90, ".\\retail\\DXMD_FOV.ini");
 		//Get Default Hands FOV
 		current_Hands_FOV = (float)(GetPrivateProfileInt("DefaultHandsFOV", "FOV", 70, ".\\retail\\DXMD_FOV.ini"));
 		if (current_Hands_FOV < 5.0) {
-			current_Hands_FOV = 0.0;
+			current_Hands_FOV = 0.1;
 		}
 
 		//Initiate thread(s)

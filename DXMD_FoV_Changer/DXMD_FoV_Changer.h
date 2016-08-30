@@ -29,6 +29,7 @@ int FOV_Up_Key = 0;
 int FOV_Down_Key = 0;
 int Hands_FOV_Up_Key = 0;
 int Hands_FOV_Down_Key = 0;
+int Reset_FOV_Key = 0;
 
 //Space for manual ASM (hex bytes) code caves
 //
@@ -86,9 +87,10 @@ uint8_t fp_FOV_Hands_modifier_CodeCave[116] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x
 float default_FOV_Base_Modifier = 57.29577637;
 //float default_FOV_Base_Modifier2 = 1.189791016;
 float default_FOV_Modifier = 1.25;
+float default_Hands_FOV = 68.17;
 DWORD64* ptr_FOV_Modifier = (DWORD64*)((int)(&fp_FOV_modifier_CodeCave[52]));
 DWORD64* ptr_fp_Hands_FOV_Base_Modifier = (DWORD64*)((int)(&fp_FOV_Hands_modifier_CodeCave[92]));
-float current_Hands_FOV = 68.17;
+float current_Hands_FOV = default_Hands_FOV;
 
 //Addresses for lines of ASM code that will be changed (or have additional code injected at its location)
 DWORD64 fp_FOV_modifier_Instruction = 0;
