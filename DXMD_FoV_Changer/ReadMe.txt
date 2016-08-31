@@ -1,48 +1,32 @@
-========================================================================
-    DYNAMIC LINK LIBRARY : DXMD_FoV_Changer Project Overview
-========================================================================
-
-AppWizard has created this DXMD_FoV_Changer DLL for you.
-
-This file contains a summary of what you will find in each of the files that
-make up your DXMD_FoV_Changer application.
+Enhanced FoV Options for Deus Ex: Mankind Divided
+Made by SeanP
 
 
-DXMD_FoV_Changer.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
+This mod allows you to change the Field of View in DXMD (including higher or lower values than the game normally allows) at the press of a button. It also allows you to change the rendered FoV of your hands separately, so weapon animations won't look strange on higher FoV settings.
 
-DXMD_FoV_Changer.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
+Installation: Install the x64 Visual C++ 2015 Runtime (https://www.microsoft.com/en-us/download/details.aspx?id=48145), and then merge the \Deus Ex Mankind Divided\ folder with the one in your Steam library directory (usually C:\Program Files (x86)\Steam\SteamApps\common\Deus Ex Mankind Divided\)
 
-DXMD_FoV_Changer.cpp
-    This is the main DLL source file.
+NOTE: If you already had Special K installed before installing this, make sure you dxgi.ini has the following in it:
+[Import.DXMD_FOV]
+Architecture=x64
+Filename=DXMD_FOV.dll
+When=Lazy
+Role=ThirdParty
 
-	When created, this DLL does not export any symbols. As a result, it
-	will not produce a .lib file when it is built. If you wish this project
-	to be a project dependency of some other project, you will either need to
-	add code to export some symbols from the DLL so that an export library
-	will be produced, or you can set the Ignore Input Library property to Yes
-	on the General propert page of the Linker folder in the project's Property
-	Pages dialog box.
+Default keybinds:
+Increase FoV: +
+Decrease FoV: -
+Increase Hands FoV: period
+Decrease Hands FoV: comma
+Restore Game default FoV: Delete
 
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
+You can change the keybinds and default FoVs by going to \Deus Ex Mankind Divided\retail\ and editing DXMD_FOV.ini
 
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named DXMD_FoV_Changer.pch and a precompiled types file named StdAfx.obj.
 
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
+Credit:
+This mod is built on top of Kaldaien's Special K dll, which also adds support for other stuff (such as texture dumping). To edit Special K settings, go to the \Deus Ex Mankind Divided\ folder and edit dxgi.ini. You can find more info about Special K here: https://github.com/Kaldaien/SpecialK/releases/tag/sk_043
 
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
 
-/////////////////////////////////////////////////////////////////////////////
+
+If you find any bugs, please contact me at:
+https://www.reddit.com/u/SeanPesce
