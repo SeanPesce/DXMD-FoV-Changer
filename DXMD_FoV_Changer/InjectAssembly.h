@@ -1,3 +1,4 @@
+//Some parts of this injection technique were made with help from atom0s from the CheatEngine forums
 #pragma once
 
 #include <windows.h>

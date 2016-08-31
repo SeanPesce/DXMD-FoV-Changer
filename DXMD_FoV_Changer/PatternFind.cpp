@@ -1,3 +1,5 @@
+//Most of the original code in this file was written by Franc[e]sco (from ccplz.net) or SteveAndrew (from the Cheat Engine forums)
+
 #include "stdafx.h"
 #include "PatternFind.h"
 #include <dbghelp.h>
