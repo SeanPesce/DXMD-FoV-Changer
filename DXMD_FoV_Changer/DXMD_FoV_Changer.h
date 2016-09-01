@@ -29,6 +29,7 @@ int FOV_Up_Key = 0;
 int FOV_Down_Key = 0;
 int Hands_FOV_Up_Key = 0;
 int Hands_FOV_Down_Key = 0;
+int Restore_Preferred_FOV_Key = 0;
 int Reset_FOV_Key = 0;
 
 //Space for manual ASM (hex bytes) code caves
