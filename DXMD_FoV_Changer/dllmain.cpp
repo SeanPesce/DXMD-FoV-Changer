@@ -76,6 +76,13 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	//Restore original HUD code:
 	memcpy((void*)hudScale_modifier_Instruction_block, &hudScale_modifier_Instruction_orig[0], 17);
 
+	//Find Address of instruction that regenerates health and energy
+	////////////AOB Scan//////
+	PFSEARCH pfS_RegenTimer_Instr; // This is the pattern search struct
+	FindPattern("F3 0F 11 43 4C 41 0F 97 D0", &pfS_RegenTimer_Instr, lpvDXMDBase, dwDXMDSize); // Perform search
+	regen_Instruction = (DWORD64)(BYTE*)pfS_RegenTimer_Instr.lpvResult;
+	////////Finished AOB Scan////////////
+
 	//Initialize HUD values:
 	*(float*)hudScale_modifier_Address = preferred_HUD_Scale;
 	current_HUD_Scale = *(float*)hudScale_modifier_Address;
@@ -193,6 +200,19 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 			if (enableBeeps == 1) {
 				Beep(523, 200);
 			}
+		}else if (Toggle_Regen_Key != 0 && GetAsyncKeyState(Toggle_Regen_Key) & 1) {
+			if (regen_Enabled) {
+				//Disable health and energy regeneration
+				injectNopAtAddress((BYTE*)regen_Instruction, 5);
+				regen_Enabled = false;
+			}else{
+				//Enable health and energy regeneration
+				memcpy((void*)regen_Instruction, &regen_Timer_Instruction[0], 5);
+				regen_Enabled = true;
+			}
+			if (enableBeeps == 1) {
+				Beep(523, 200);
+			}
 		}
 
 		//Adjust hands FOV
@@ -302,7 +322,7 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 			writer.close();
 			//end of test code
 			preferred_HUD_Scale = std::stof(hudScaleValue);
-			if (preferred_HUD_Scale < 0.0) {
+			if (preferred_HUD_Scale <= 0.0) {
 				preferred_HUD_Scale = 0.0;
 			}
 		}
@@ -310,31 +330,35 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 			preferred_HUD_Scale = default_HUD_Scale;
 		}
 		//Get "Toggle Hud" Keybind
-		GetPrivateProfileString("HUD", "ToggleHud_Keybind", "", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		GetPrivateProfileString("HUD", "ToggleHud_Keybind", "0", keybind, 3, ".\\retail\\DXMD_FOV.ini");
 		std::stringstream hsToggleHUD;
 		hsToggleHUD << std::hex << keybind;
 		hsToggleHUD >> Toggle_HUD_Key;
 		//Get "Increase HUD Scale" Keybind
-		GetPrivateProfileString("HUD", "IncreaseHudScale_Keybind", "", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		GetPrivateProfileString("HUD", "IncreaseHudScale_Keybind", "0", keybind, 3, ".\\retail\\DXMD_FOV.ini");
 		std::stringstream hsHUDScaleUp;
 		hsHUDScaleUp << std::hex << keybind;
 		hsHUDScaleUp >> Increase_HudScale_Key;
 		//Get "Decrease HUD Scale" Keybind
-		GetPrivateProfileString("HUD", "DecreaseHudScale_Keybind", "", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		GetPrivateProfileString("HUD", "DecreaseHudScale_Keybind", "0", keybind, 3, ".\\retail\\DXMD_FOV.ini");
 		std::stringstream hsHUDScaleDown;
 		hsHUDScaleDown << std::hex << keybind;
 		hsHUDScaleDown >> Decrease_HudScale_Key;
 		//Get "Restore Player's Given Default HUD Scale" Keybind
-		GetPrivateProfileString("HUD", "RestorePreferredHudScale_Keybind", "", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		GetPrivateProfileString("HUD", "RestorePreferredHudScale_Keybind", "0", keybind, 3, ".\\retail\\DXMD_FOV.ini");
 		std::stringstream hsRestorePreferredHUDScale;
 		hsRestorePreferredHUDScale << std::hex << keybind;
 		hsRestorePreferredHUDScale >> Restore_Preferred_HudScale_Key;
 		//Get "Restore game default HUD Scale" Keybind
-		GetPrivateProfileString("HUD", "RestoreGameSupportedHudScale_Keybind", "", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		GetPrivateProfileString("HUD", "RestoreGameSupportedHudScale_Keybind", "0", keybind, 3, ".\\retail\\DXMD_FOV.ini");
 		std::stringstream hsRestoreGameSupportedHUDScale;
 		hsRestoreGameSupportedHUDScale << std::hex << keybind;
 		hsRestoreGameSupportedHUDScale >> Reset_HudScale_Key;
-
+		//Get "Toggle Health & Energy Regeneration" Keybind
+		GetPrivateProfileString("Challenges", "ToggleRegen_Keybind", "0", keybind, 3, ".\\retail\\DXMD_FOV.ini");
+		std::stringstream hsToggleRegen;
+		hsToggleRegen << std::hex << keybind;
+		hsToggleRegen >> Toggle_Regen_Key;
 		//Initiate thread(s)
 		hInitFOVChangerThread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)&FOVChangerThread, 0, 0, 0);
 	}

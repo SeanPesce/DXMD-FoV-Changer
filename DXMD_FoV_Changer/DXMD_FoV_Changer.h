@@ -41,6 +41,7 @@ int Increase_HudScale_Key = 0;
 int Decrease_HudScale_Key = 0;
 int Restore_Preferred_HudScale_Key = 0;
 int Reset_HudScale_Key = 0;
+int Toggle_Regen_Key = 0;
 
 //Space for manual ASM (hex bytes) code caves
 //
@@ -109,6 +110,9 @@ uint8_t hudScale_modifier_Instruction_getAddr[17] = { 0x74, 0x08, //je 0x08
 														0xF3, 0x0F, 0x10, 0x41, 0x28,	//movss  xmm0,DWORD PTR [rcx+0x28]
 														0xC3,	//ret
 														0xCC };  //Padding
+
+uint8_t regen_Timer_Instruction[5] = { 0xF3, 0x0F, 0x11, 0x43, 0x4C }; //movss [rbx+0x4C],xmm0
+
 //FOV Values
 float default_FOV_Base_Modifier = 57.29577637;
 float default_FOV_Modifier = 1.25;
@@ -128,8 +132,11 @@ byte current_Cover_Prompts_Value = 1;
 byte current_Cover2Cov_Line_Value = 1;
 byte current_Damage_Indicator_Value = 1;
 byte current_Threat_Indicator_Value = 1;
+//Challenge Values
+boolean regen_Enabled = true;
 
 //Addresses for lines of ASM code that will be changed (or have additional code injected at its location)
 DWORD64 fp_FOV_modifier_Instruction = 0;
 DWORD64 fp_Hands_FOV_modifier_Instruction = 0;
 DWORD64 hudScale_modifier_Address = 0;
+DWORD64 regen_Instruction = 0;
