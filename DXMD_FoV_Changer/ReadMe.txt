@@ -18,6 +18,7 @@ Increase FoV: +
 Decrease FoV: -
 Increase Hands FoV: period
 Decrease Hands FoV: comma
+Restore Player Preferred FoV: Backspace
 Restore Game default FoV: Delete
 
 You can change the keybinds and default FoVs by going to \Deus Ex Mankind Divided\retail\ and editing DXMD_FOV.ini

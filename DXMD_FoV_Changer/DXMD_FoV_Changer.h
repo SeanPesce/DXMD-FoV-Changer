@@ -21,6 +21,11 @@ DWORD dwDXMDSize; //Deus Ex: Mankind Divided base memory size
 int* dxmdStartAddr;
 BYTE* btdxmdStartAddr;
 
+//Methods
+void saveHudStates();
+void restoreHudStates();
+void turnOffHudStates();
+
 //Mod Settings
 int enableBeeps = false;
 
@@ -31,6 +36,11 @@ int Hands_FOV_Up_Key = 0;
 int Hands_FOV_Down_Key = 0;
 int Restore_Preferred_FOV_Key = 0;
 int Reset_FOV_Key = 0;
+int Toggle_HUD_Key = 0;
+int Increase_HudScale_Key = 0;
+int Decrease_HudScale_Key = 0;
+int Restore_Preferred_HudScale_Key = 0;
+int Reset_HudScale_Key = 0;
 
 //Space for manual ASM (hex bytes) code caves
 //
@@ -39,8 +49,8 @@ uint8_t fp_FOV_modifier_Jump[24] = { 0xFF, 0x25, 0x04, 0x00, 0x00, 0x00, //[0:5]
 										0x90, 0x90, 0x90, 0x90, //[6:9] Note: the 0x90 (nop)bytes are just a failsafe giving us extra space to work with and stop any nearby bytes from making the code confusing
 										0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, //[10:17] These bytes will be overwritten with &fp_FOV_modifier_CodeCave[0]
 										0x90, 0x90, 0x90, 0x90, 0x90, 0x90};  //[18:23] removing the end of the overwritten instruction(s)
-//
-//
+
+
 uint8_t fp_FOV_modifier_CodeCave[84] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, //[0:15] Note: the 0x90 (nop) bytes are just a failsafe giving us extra space to work with and stop any nearby bytes from making the code confusing
 											//0xF3, 0x48, 0x0F, 0x59, 0x05, 0x1F, 0x00, 0x00, 0x00, //[16:24] rex.W mulss xmm0,DWORD PTR [rip+0x1F]   aka   mulss xmm0, qword ptr[*ptr_FOV_Modifier]
 											0xF3, 0x0F, 0x59, 0x05, 0x1C, 0x00, 0x00, 0x00, 0x90, //[16:24] mulss  xmm0,DWORD PTR [rip+0x1C]   aka   mulss xmm0, qword ptr[*ptr_FOV_Modifier]
@@ -84,15 +94,42 @@ uint8_t fp_FOV_Hands_modifier_CodeCave[116] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x
 												0x90, 0x90, 0x90, 0x90 //[112:115] more extra space to work with
 												};
 
+uint8_t hudScale_modifier_Instruction_orig[17] = { 0x74, 0x06,	//je 0x08
+												0xF3, 0x0F, 0x10, 0x41, 0x24,	//movss  xmm0,DWORD PTR [rcx+0x24]
+												0xC3,	//ret
+												0xF3, 0x0F, 0x10, 0x41, 0x28,	//movss  xmm0,DWORD PTR [rcx+0x28]
+												0xC3,	//ret
+												0xCC, 0xCC, 0xCC };  //Padding
+
+uint8_t hudScale_modifier_Instruction_getAddr[17] = { 0x74, 0x08, //je 0x08
+														/*/0x48, 0x89, 0x0D, 0xD7, 0x00, 0x00, 0x00, //mov QWORD PTR[rip + 0xd7],rcx
+														0xF3, 0x0F, 0x10, 0x41, 0x24,	//movss  xmm0,DWORD PTR [rcx+0x24]*/
+														0x48, 0x89, 0x0D, 0x08, 0x00, 0x00, 0x00, //mov QWORD PTR[rip + 0x08],rcx
+														0xC3,	//ret
+														0xF3, 0x0F, 0x10, 0x41, 0x28,	//movss  xmm0,DWORD PTR [rcx+0x28]
+														0xC3,	//ret
+														0xCC };  //Padding
 //FOV Values
 float default_FOV_Base_Modifier = 57.29577637;
-//float default_FOV_Base_Modifier2 = 1.189791016;
 float default_FOV_Modifier = 1.25;
 float default_Hands_FOV = 68.17;
 DWORD64* ptr_FOV_Modifier = (DWORD64*)((int)(&fp_FOV_modifier_CodeCave[52]));
 DWORD64* ptr_fp_Hands_FOV_Base_Modifier = (DWORD64*)((int)(&fp_FOV_Hands_modifier_CodeCave[92]));
 float current_Hands_FOV = default_Hands_FOV;
+//HUD Values
+boolean HUD_Enabled = true;
+float default_HUD_Scale = 1.0;
+float preferred_HUD_Scale = default_HUD_Scale;
+float current_HUD_Scale = default_HUD_Scale;
+byte current_Crosshair_Value = 1;
+byte current_Interaction_Prompts_Value = 1;
+byte current_Pickup_Prompts_Value = 1;
+byte current_Cover_Prompts_Value = 1;
+byte current_Cover2Cov_Line_Value = 1;
+byte current_Damage_Indicator_Value = 1;
+byte current_Threat_Indicator_Value = 1;
 
 //Addresses for lines of ASM code that will be changed (or have additional code injected at its location)
 DWORD64 fp_FOV_modifier_Instruction = 0;
 DWORD64 fp_Hands_FOV_modifier_Instruction = 0;
+DWORD64 hudScale_modifier_Address = 0;
