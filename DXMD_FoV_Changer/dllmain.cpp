@@ -58,11 +58,14 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	//Find Address of instruction that modifies HUD Scale
 	////////////AOB Scan//////
 	PFSEARCH pfS_hudScaleMod_Instr; // This is the pattern search struct
-	FindPattern("74 06 F3 0F 10 41 24 C3 F3 0F 10 41 28 C3", &pfS_hudScaleMod_Instr, lpvDXMDBase, dwDXMDSize); // Perform search
+	FindPattern("74 0A F3 0F 10 41 24 C3", &pfS_hudScaleMod_Instr, lpvDXMDBase, dwDXMDSize); // Perform search
 	DWORD64 hudScale_modifier_Instruction_block = (DWORD64)(BYTE*)pfS_hudScaleMod_Instr.lpvResult;
 	////////Finished AOB Scan////////////
 
-	hudScale_modifier_Address = hudScale_modifier_Instruction_block + 17;
+	//Store original bytes for restoration later:
+	memcpy(&hudScale_modifier_Instruction_orig[0], (void*)hudScale_modifier_Instruction_block, 21);
+
+	hudScale_modifier_Address = hudScale_modifier_Instruction_block + 21;
 	injectHudScaleModifierGetter((BYTE*)hudScale_modifier_Instruction_block);
 	while (*(DWORD64*)hudScale_modifier_Address == 14757395258967641292) {
 		//while(hudScale_modifier_Address == CC CC CC CC CC CC CC CC)
@@ -74,7 +77,7 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	//Restore padding bytes between functions
 	*(DWORD64*)tempHudScalePtr = 14757395258967641292;
 	//Restore original HUD code:
-	memcpy((void*)hudScale_modifier_Instruction_block, &hudScale_modifier_Instruction_orig[0], 17);
+	memcpy((void*)hudScale_modifier_Instruction_block, &hudScale_modifier_Instruction_orig[0], 21);
 
 	//Find Address of instruction that regenerates health and energy
 	////////////AOB Scan//////

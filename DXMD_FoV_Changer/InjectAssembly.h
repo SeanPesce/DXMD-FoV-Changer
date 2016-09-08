@@ -92,7 +92,7 @@ void injectHudScaleModifierGetter(BYTE* new_btCodeAddr)
 	::VirtualProtect(btCodeAddr, 100, PAGE_EXECUTE_READWRITE, &dwOldProtect);
 
 	//Copy changed code to acquire the address we need
-	memcpy((void*)btCodeAddr, &hudScale_modifier_Instruction_getAddr[0], 17);
+	memcpy((void*)btCodeAddr, &hudScale_modifier_Instruction_getAddr[0], 21);
 
 }
 
