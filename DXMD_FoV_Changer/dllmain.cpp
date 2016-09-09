@@ -62,22 +62,33 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	DWORD64 hudScale_modifier_Instruction_block = (DWORD64)(BYTE*)pfS_hudScaleMod_Instr.lpvResult;
 	////////Finished AOB Scan////////////
 
-	//Store original bytes for restoration later:
-	memcpy(&hudScale_modifier_Instruction_orig[0], (void*)hudScale_modifier_Instruction_block, 21);
+	if (hudScale_modifier_Instruction_block != 0) { //Don't do this if the address is zero; the HUD scale mods won't work but at least it won't crash
+		//Store original bytes for restoration later:
+		memcpy(&hudScale_modifier_Instruction_orig[0], (void*)hudScale_modifier_Instruction_block, 21);
 
-	hudScale_modifier_Address = hudScale_modifier_Instruction_block + 21;
-	injectHudScaleModifierGetter((BYTE*)hudScale_modifier_Instruction_block);
-	while (*(DWORD64*)hudScale_modifier_Address == 14757395258967641292) {
-		//while(hudScale_modifier_Address == CC CC CC CC CC CC CC CC)
-		Sleep(2);
+		hudScale_modifier_Address = hudScale_modifier_Instruction_block + 21;
+		injectHudScaleModifierGetter((BYTE*)hudScale_modifier_Instruction_block);
+		while (*(DWORD64*)hudScale_modifier_Address == 14757395258967641292) {
+			//while(hudScale_modifier_Address == CC CC CC CC CC CC CC CC)
+			Sleep(2);
+		}
+		DWORD64 tempHudScalePtr = hudScale_modifier_Address;
+		//Get HUD Scale modifier
+		hudScale_modifier_Address = (*(DWORD64*)hudScale_modifier_Address) + 0x24;
+		//Restore padding bytes between functions
+		*(DWORD64*)tempHudScalePtr = 14757395258967641292;
+		//Restore original HUD code:
+		memcpy((void*)hudScale_modifier_Instruction_block, &hudScale_modifier_Instruction_orig[0], 21);
+
+		//Initialize HUD values:
+		*(float*)hudScale_modifier_Address = preferred_HUD_Scale;
+		current_HUD_Scale = *(float*)hudScale_modifier_Address;
+		saveHudStates();
+		if (!HUD_Enabled) {
+			*(float*)hudScale_modifier_Address = 0.0;
+			turnOffHudStates();
+		}
 	}
-	DWORD64 tempHudScalePtr = hudScale_modifier_Address;
-	//Get HUD Scale modifier
-	hudScale_modifier_Address = (*(DWORD64*)hudScale_modifier_Address) + 0x24;
-	//Restore padding bytes between functions
-	*(DWORD64*)tempHudScalePtr = 14757395258967641292;
-	//Restore original HUD code:
-	memcpy((void*)hudScale_modifier_Instruction_block, &hudScale_modifier_Instruction_orig[0], 21);
 
 	//Find Address of instruction that regenerates health and energy
 	////////////AOB Scan//////
@@ -85,15 +96,6 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	FindPattern("F3 0F 11 43 4C 41 0F 97 D0", &pfS_RegenTimer_Instr, lpvDXMDBase, dwDXMDSize); // Perform search
 	regen_Instruction = (DWORD64)(BYTE*)pfS_RegenTimer_Instr.lpvResult;
 	////////Finished AOB Scan////////////
-
-	//Initialize HUD values:
-	*(float*)hudScale_modifier_Address = preferred_HUD_Scale;
-	current_HUD_Scale = *(float*)hudScale_modifier_Address;
-	saveHudStates();
-	if (!HUD_Enabled) {
-		*(float*)hudScale_modifier_Address = 0.0;
-		turnOffHudStates();
-	}
 
 	while (bRunningFOVChanger)
 	{
@@ -143,14 +145,14 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 			if (enableBeeps == 1) {
 				Beep(523, 200);
 			}
-		}else if (Increase_HudScale_Key != 0 && GetAsyncKeyState(Increase_HudScale_Key) && HUD_Enabled & 1) {
+		}else if (hudScale_modifier_Instruction_block != 0 && Increase_HudScale_Key != 0 && GetAsyncKeyState(Increase_HudScale_Key) && HUD_Enabled & 1) {
 			//Increase HUD Scale
 			*(float*)hudScale_modifier_Address = *(float*)hudScale_modifier_Address + 0.1;
 			current_HUD_Scale = *(float*)hudScale_modifier_Address;
 			if (enableBeeps == 1) {
 				Beep(523, 200);
 			}
-		}else if (Decrease_HudScale_Key != 0 && GetAsyncKeyState(Decrease_HudScale_Key) && HUD_Enabled & 1) {
+		}else if (hudScale_modifier_Instruction_block != 0 && Decrease_HudScale_Key != 0 && GetAsyncKeyState(Decrease_HudScale_Key) && HUD_Enabled & 1) {
 			//Decrease HUD Scale (Minimum = 0.0)
 			if (current_HUD_Scale >= 0.1) {
 				*(float*)hudScale_modifier_Address = *(float*)hudScale_modifier_Address - 0.1;
@@ -165,7 +167,7 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 					Beep(523, 200);
 				}
 			}
-		}else if (Toggle_HUD_Key != 0 && GetAsyncKeyState(Toggle_HUD_Key) & 1) {
+		}else if (hudScale_modifier_Instruction_block != 0 && Toggle_HUD_Key != 0 && GetAsyncKeyState(Toggle_HUD_Key) & 1) {
 			if (HUD_Enabled) {
 				//Turn off HUD
 				*(float*)hudScale_modifier_Address = 0.0;
@@ -181,7 +183,7 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 			if (enableBeeps == 1) {
 				Beep(523, 200);
 			}
-		}else if (Reset_HudScale_Key != 0 && GetAsyncKeyState(Reset_HudScale_Key) & 1) {
+		}else if (hudScale_modifier_Instruction_block != 0 && Reset_HudScale_Key != 0 && GetAsyncKeyState(Reset_HudScale_Key) & 1) {
 			//Restore game default HUD Scale
 			*(float*)hudScale_modifier_Address = default_HUD_Scale;
 			current_HUD_Scale = *(float*)hudScale_modifier_Address;
@@ -192,7 +194,7 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 			if (enableBeeps == 1) {
 				Beep(523, 200);
 			}
-		}else if (Restore_Preferred_HudScale_Key != 0 && GetAsyncKeyState(Restore_Preferred_HudScale_Key) & 1) {
+		}else if (hudScale_modifier_Instruction_block != 0 && Restore_Preferred_HudScale_Key != 0 && GetAsyncKeyState(Restore_Preferred_HudScale_Key) & 1) {
 			//Restore player's preferred HUD Scale
 			*(float*)hudScale_modifier_Address = preferred_HUD_Scale;
 			current_HUD_Scale = *(float*)hudScale_modifier_Address;
