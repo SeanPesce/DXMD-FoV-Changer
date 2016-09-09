@@ -62,7 +62,11 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 	DWORD64 hudScale_modifier_Instruction_block = (DWORD64)(BYTE*)pfS_hudScaleMod_Instr.lpvResult;
 	////////Finished AOB Scan////////////
 
-	if (hudScale_modifier_Instruction_block != 0) { //Don't do this if the address is zero; the HUD scale mods won't work but at least it won't crash
+	DWORD64 tempHudScalePtr = 0;
+
+	if (hudScale_modifier_Instruction_block != 0) { 
+		//For DX12 non-beta build (9/8/16 patch):
+
 		//Store original bytes for restoration later:
 		memcpy(&hudScale_modifier_Instruction_orig[0], (void*)hudScale_modifier_Instruction_block, 21);
 
@@ -72,7 +76,7 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 			//while(hudScale_modifier_Address == CC CC CC CC CC CC CC CC)
 			Sleep(2);
 		}
-		DWORD64 tempHudScalePtr = hudScale_modifier_Address;
+		tempHudScalePtr = hudScale_modifier_Address;
 		//Get HUD Scale modifier
 		hudScale_modifier_Address = (*(DWORD64*)hudScale_modifier_Address) + 0x24;
 		//Restore padding bytes between functions
@@ -88,7 +92,45 @@ DWORD WINAPI FOVChangerThread(LPVOID param)
 			*(float*)hudScale_modifier_Address = 0.0;
 			turnOffHudStates();
 		}
+	}else{
+		//For DX12 beta build (9/8/16 patch):
+
+		//Try different AOB to find Address of instruction that modifies HUD Scale
+		////////////AOB Scan//////
+		FindPattern("74 07 F3 0F 10 41 24", &pfS_hudScaleMod_Instr, lpvDXMDBase, dwDXMDSize); // Perform search
+		hudScale_modifier_Instruction_block = (DWORD64)(BYTE*)pfS_hudScaleMod_Instr.lpvResult;
+		////////Finished AOB Scan////////////
+
+		if (hudScale_modifier_Instruction_block != 0) {
+			//Store original bytes for restoration later:
+			memcpy(&hudScale_modifier_Instruction_orig_beta[0], (void*)hudScale_modifier_Instruction_block, 19);
+
+			hudScale_modifier_Address = hudScale_modifier_Instruction_block + 19;
+			injectHudScaleModifierGetter_beta((BYTE*)hudScale_modifier_Instruction_block);
+			while (*(DWORD64*)hudScale_modifier_Address == 14757395258967641292) {
+				//while(hudScale_modifier_Address == CC CC CC CC CC CC CC CC)
+				Sleep(2);
+			}
+			tempHudScalePtr = hudScale_modifier_Address;
+			//Get HUD Scale modifier
+			hudScale_modifier_Address = (*(DWORD64*)hudScale_modifier_Address) + 0x24;
+			//Restore padding bytes between functions
+			*(DWORD64*)tempHudScalePtr = 14757395258967641292;
+			//Restore original HUD code:
+			memcpy((void*)hudScale_modifier_Instruction_block, &hudScale_modifier_Instruction_orig_beta[0], 19);
+
+			//Initialize HUD values:
+			*(float*)hudScale_modifier_Address = preferred_HUD_Scale;
+			current_HUD_Scale = *(float*)hudScale_modifier_Address;
+			saveHudStates();
+			if (!HUD_Enabled) {
+				*(float*)hudScale_modifier_Address = 0.0;
+				turnOffHudStates();
+			}
+		}
 	}
+
+
 
 	//Find Address of instruction that regenerates health and energy
 	////////////AOB Scan//////
