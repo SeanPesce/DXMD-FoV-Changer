@@ -1,7 +1,5 @@
 #pragma once
 
-void ExitInstance(void);
-
 #pragma data_seg (".d3d9_shared")
 HINSTANCE           hOriginalDll;
 HINSTANCE           hThisInstance;
@@ -18,10 +16,15 @@ DWORD64 dwBase;
 
 LPVOID lpvDXMDBase; //Deus Ex: Mankind Divided Base Address
 DWORD dwDXMDSize; //Deus Ex: Mankind Divided base memory size
-int* dxmdStartAddr;
+DWORD64* dxmdStartAddr;
 BYTE* btdxmdStartAddr;
 
 //Methods
+void initKeybindsAndSettings();
+void initFOVModifiers();
+void initGameStatReaders();
+void initHUDModifiers();
+void initRegenModifiers();
 void saveHudStates();
 void restoreHudStates();
 void turnOffHudStates();
@@ -42,6 +45,7 @@ int Decrease_HudScale_Key = 0;
 int Restore_Preferred_HudScale_Key = 0;
 int Reset_HudScale_Key = 0;
 int Toggle_Regen_Key = 0;
+int Check_Pacifist_Key = 0;
 
 //Space for manual ASM (hex bytes) code caves
 //
@@ -119,6 +123,24 @@ uint8_t hudScale_modifier_Instruction_getAddr_beta[19] = { 0x74, 0x09, 0x48, 0x8
 
 uint8_t regen_Timer_Instruction[5] = { 0xF3, 0x0F, 0x11, 0x43, 0x4C }; //movss [rbx+0x4C],xmm0
 
+uint8_t stats_modifier_Instruction_orig[33] = { 0x89, 0x83, 0x80, 0x00, 0x00, 0x00,
+													0x89, 0x43, 0x60,
+													0x48, 0x89, 0x43, 0x78,
+													0x48, 0x89, 0x43, 0x70,
+													0x48, 0x89, 0x43, 0x68,
+													0x89, 0x83, 0xA8, 0x00, 0x00, 0x00,
+													0x89, 0x83, 0x88, 0x00, 0x00, 0x00 };
+
+uint8_t stats_modifier_Instruction_get[33] = { 0x48, 0x89, 0x1D, 0x0A, 0x00, 0x00, 0x00,
+													//0xFF, 0x25, 0x12, 0x00, 0x00, 0x00,
+													0xEB, 0x13,
+													0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, //nops to make room for pointer (and padding)
+													0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+													0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 }; //more nops to make room for pointer (and padding)
+
+//Game stats values
+DWORD64* ptr_statsStart = 0;
+DWORD64* stat_killCount = 0;
 //FOV Values
 float default_FOV_Base_Modifier = 57.29577637;
 float default_FOV_Modifier = 1.25;
@@ -138,11 +160,15 @@ byte current_Cover_Prompts_Value = 1;
 byte current_Cover2Cov_Line_Value = 1;
 byte current_Damage_Indicator_Value = 1;
 byte current_Threat_Indicator_Value = 1;
+//Achievement values
+boolean monitorPacifist = false;
+boolean noKills = true;
 //Challenge Values
 boolean regen_Enabled = true;
 
 //Addresses for lines of ASM code that will be changed (or have additional code injected at its location)
 DWORD64 fp_FOV_modifier_Instruction = 0;
 DWORD64 fp_Hands_FOV_modifier_Instruction = 0;
+DWORD64 hudScale_modifier_Instruction_block = 0;
 DWORD64 hudScale_modifier_Address = 0;
 DWORD64 regen_Instruction = 0;

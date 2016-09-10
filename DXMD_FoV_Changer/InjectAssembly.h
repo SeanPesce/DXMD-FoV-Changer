@@ -110,6 +110,20 @@ void injectHudScaleModifierGetter_beta(BYTE* new_btCodeAddr)
 
 }
 
+void injectStatsGetter(BYTE* new_btCodeAddr)
+{
+	// Do your signature scanning here..
+	BYTE* btCodeAddr = new_btCodeAddr;
+
+	// Unprotect the memory to write your jump..
+	DWORD dwOldProtect = NULL;
+	::VirtualProtect(btCodeAddr, 1000, PAGE_EXECUTE_READWRITE, &dwOldProtect);
+
+	//Copy changed code to acquire the address we need
+	memcpy((void*)btCodeAddr, &stats_modifier_Instruction_get[0], 33);
+
+}
+
 void injectNopAtAddress(BYTE* new_btCodeAddr, int nops)
 {
 	// Do your signature scanning here..
