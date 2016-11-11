@@ -30,11 +30,14 @@ I was messing around with some other features that I saw requested on the Deus E
 Achievement Monitoring:
 I added an option for the mod to check whether the currently-loaded savegame is still eligible for the Pacifist at the press of a button. You can set the hotkey in the DXMD_FOV.ini file (checkPacifistStatus_Keybind). 1 beep means you're still eligible for the achievement; 3 beeps means you've killed someone and are no longer eligible.
 Additionally, you can have the mod automatically monitor whether your eligibility for this achievement on the fly, by setting monitorPacifist=1 in DXMD_FOV.ini. If your character becomes ineligible, the mod will alert you with 3 beeps.
+
 Default Keybind:
 Check Pacifist achievement eligibility: Numpad Minus (-)
 
+
 Challenges:
 You can set ToggleRegen_Keybind to a key, which allows you to turn off health/energy regen for challenge runs.
+
 Default Keybind: 
 Toggle Regen: Numpad Plus (+)
 
