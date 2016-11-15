@@ -28,8 +28,8 @@ You can change the keybinds and default FoVs by going to \Deus Ex Mankind Divide
 I was messing around with some other features that I saw requested on the Deus Ex subreddit (https://www.reddit.com/r/DeusEx ), and added them to this mod.
 
 Achievement Monitoring:  
-I added an option for the mod to check whether the currently-loaded savegame is still eligible for the Pacifist at the press of a button. You can set the hotkey in the DXMD_FOV.ini file (checkPacifistStatus_Keybind). 1 beep means you're still eligible for the achievement; 3 beeps means you've killed someone and are no longer eligible.  
-Additionally, you can have the mod automatically monitor whether your eligibility for this achievement on the fly, by setting monitorPacifist=1 in DXMD_FOV.ini. If your character becomes ineligible, the mod will alert you with 3 beeps.  
+I added an option for the mod to check whether the currently-loaded savegame is still eligible for the Pacifist achievement at the press of a button. You can set the hotkey in the DXMD_FOV.ini file (checkPacifistStatus_Keybind). 1 beep means you're still eligible for the achievement; 3 beeps means you've killed someone and are no longer eligible.  
+Additionally, you can have the mod automatically monitor your eligibility for this achievement on the fly, by setting monitorPacifist=1 in DXMD_FOV.ini. If your character becomes ineligible, the mod will alert you with 3 beeps.  
 Default Keybind:  
 Check Pacifist achievement eligibility: Numpad Minus (-)
 
