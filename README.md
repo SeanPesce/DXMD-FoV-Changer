@@ -5,7 +5,7 @@ Author: Sean Pesce
 
 
 
-This mod allows you to change the Field of View in DXMD (including higher or lower values than the game normally allows) at the press of a button. It also allows you to change the rendered FoV of your hands separately, so weapon animations won't look strange on higher FoV settings.
+This mod allows you to change the Field of View in DXMD (including higher or lower values than the game normally allows) at the press of a button. It also allows you to [change the rendered FoV of your hands separately](https://gfycat.com/EqualDeliriousGyrfalcon), so weapon animations won't look strange on higher FoV settings.
 
 Installation: Install the [x64 Visual C++ 2015 Runtime](https://www.microsoft.com/en-us/download/details.aspx?id=48145), and then merge this \Deus Ex Mankind Divided\ folder with the one in your Steam library directory (usually `C:\Program Files (x86)\Steam\SteamApps\common\Deus Ex Mankind Divided\`)
 
