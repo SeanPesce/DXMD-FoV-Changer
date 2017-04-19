@@ -1,7 +1,7 @@
 # Enhanced FoV Options for Deus Ex: Mankind Divided  
 Author: Sean Pesce
 
-**[Demo Video](https://www.youtube.com/watch?v=qWjd7HO216A)** (or [Webm](https://gfycat.com/FavorableThoseEagle))
+## **[Demo Video](https://www.youtube.com/watch?v=qWjd7HO216A)** (or [Webm](https://gfycat.com/FavorableThoseEagle))
 
 
 
