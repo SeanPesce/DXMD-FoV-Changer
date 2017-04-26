@@ -1,11 +1,11 @@
+// Author: Sean Pesce
 //Most of the original code in this file was written by Franc[e]sco (from ccplz.net) or SteveAndrew (from the Cheat Engine forums)
 
-#include "stdafx.h"
 #include "PatternFind.h"
 #include <dbghelp.h>
 #include <psapi.h>
 #include "stdio.h"
-#include <windows.h>
+#include <Windows.h>
 #pragma  comment(lib, "dbghelp")
 #pragma  comment(lib, "psapi")
 
@@ -147,7 +147,7 @@ DWORD PFAPI FindPattern(char *szPattern, PFSEARCH *ppf, LPVOID lpvBase, DWORD dw
 	return PF_NONE;
 }
 
-HANDLE hModule2;
+/*HANDLE hModule2;
 DWORD64 Module(LPSTR ModuleName)
 {
 	hModule2 = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, GetCurrentProcessId());
@@ -162,7 +162,7 @@ DWORD64 Module(LPSTR ModuleName)
 		}
 	while (Module32Next(hModule2, &mEntry));
 	return 0;
-}
+}*/
 
 typedef BOOL(WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
 //64-bit version:
@@ -220,7 +220,8 @@ int WINAPI AOBScanWalkRegions(char* aobPattern, bool useCESettings)
 	
 	CheatEngineScanSettings = useCESettings;
 
-	DWORD lpAddr = Module("DXMD.exe");
+	//DWORD lpAddr = Module("DXMD.exe");
+	DWORD64 lpAddr = (DWORD64)GetModuleHandle(NULL);
 	MEMORY_BASIC_INFORMATION mi;
 	for (lpAddr; lpAddr<0x7FFFFFFFFFFFFFF; lpAddr += PageSize)
 	{

@@ -1,11 +1,12 @@
+// Author: Sean Pesce
+
 #pragma once
 
-#pragma data_seg (".d3d9_shared")
-HINSTANCE           hOriginalDll;
-HINSTANCE           hThisInstance;
-#pragma data_seg ()
+#include <Windows.h>
+#include <stdio.h>
+#include <cstdint>
+#include <sstream>
 
-HANDLE hInitGameDataThread;
 HANDLE hInitFOVChangerThread;
 HANDLE hProcess;
 
@@ -22,12 +23,6 @@ BYTE* btdxmdStartAddr;
 //Methods
 void initKeybindsAndSettings();
 void initFOVModifiers();
-void initGameStatReaders();
-void initHUDModifiers();
-void initRegenModifiers();
-void saveHudStates();
-void restoreHudStates();
-void turnOffHudStates();
 
 //Mod Settings
 int enableBeeps = false;
@@ -39,13 +34,6 @@ int Hands_FOV_Up_Key = 0;
 int Hands_FOV_Down_Key = 0;
 int Restore_Preferred_FOV_Key = 0;
 int Reset_FOV_Key = 0;
-int Toggle_HUD_Key = 0;
-int Increase_HudScale_Key = 0;
-int Decrease_HudScale_Key = 0;
-int Restore_Preferred_HudScale_Key = 0;
-int Reset_HudScale_Key = 0;
-int Toggle_Regen_Key = 0;
-int Check_Pacifist_Key = 0;
 
 //Space for manual ASM (hex bytes) code caves
 //
@@ -99,48 +87,7 @@ uint8_t fp_FOV_Hands_modifier_CodeCave[116] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x
 												0x90, 0x90, 0x90, 0x90 //[112:115] more extra space to work with
 												};
 
-//This is obsolete after 9/8/16 patch
-/*uint8_t hudScale_modifier_Instruction_orig[17] = { 0x74, 0x06,	//je 0x08
-												0xF3, 0x0F, 0x10, 0x41, 0x24,	//movss  xmm0,DWORD PTR [rcx+0x24]
-												0xC3,	//ret
-												0xF3, 0x0F, 0x10, 0x41, 0x28,	//movss  xmm0,DWORD PTR [rcx+0x28]
-												0xC3,	//ret
-												0xCC, 0xCC, 0xCC };  //Padding
 
-//This is obsolete after 9/8/16 patch
-uint8_t hudScale_modifier_Instruction_getAddr[17] = { 0x74, 0x08, //je 0x08
-														0x48, 0x89, 0x0D, 0x08, 0x00, 0x00, 0x00, //mov QWORD PTR[rip + 0x08],rcx
-														0xC3,	//ret
-														0xF3, 0x0F, 0x10, 0x41, 0x28,	//movss  xmm0,DWORD PTR [rcx+0x28]
-														0xC3,	//ret
-														0xCC };  //Padding*/
-
-uint8_t hudScale_modifier_Instruction_orig[21] = { 0x74, 0x0A, 0xF3, 0x0F, 0x10, 0x41, 0x24, 0xC3, 0xF2, 0xF8, 0x1F, 0x4F, 0xF3, 0x0F, 0x10, 0x41, 0x28, 0xC3, 0x39, 0xCC, 0xCC };
-uint8_t hudScale_modifier_Instruction_getAddr[21] = { 0x74, 0x0C, 0x48, 0x89, 0x0D, 0x0C, 0x00, 0x00, 0x00, 0xC3, 0xF2, 0xF8, 0x1F, 0x4F, 0xF3, 0x0F, 0x10, 0x41, 0x28, 0xC3, 0x39 };
-
-uint8_t hudScale_modifier_Instruction_orig_beta[19] = { 0x74, 0x07, 0xF3, 0x0F, 0x10, 0x41, 0x24, 0xC3, 0xFF, 0xF3, 0x0F, 0x10, 0x41, 0x28, 0xC3, 0x05, 0xCC, 0xCC, 0xCC };
-uint8_t hudScale_modifier_Instruction_getAddr_beta[19] = { 0x74, 0x09, 0x48, 0x89, 0x0D, 0x0A, 0x00, 0x00, 0x00, 0xC3, 0xFF, 0xF3, 0x0F, 0x10, 0x41, 0x28, 0xC3, 0x05, 0xCC };
-
-uint8_t regen_Timer_Instruction[5] = { 0xF3, 0x0F, 0x11, 0x43, 0x4C }; //movss [rbx+0x4C],xmm0
-
-uint8_t stats_modifier_Instruction_orig[33] = { 0x89, 0x83, 0x80, 0x00, 0x00, 0x00,
-													0x89, 0x43, 0x60,
-													0x48, 0x89, 0x43, 0x78,
-													0x48, 0x89, 0x43, 0x70,
-													0x48, 0x89, 0x43, 0x68,
-													0x89, 0x83, 0xA8, 0x00, 0x00, 0x00,
-													0x89, 0x83, 0x88, 0x00, 0x00, 0x00 };
-
-uint8_t stats_modifier_Instruction_get[33] = { 0x48, 0x89, 0x1D, 0x0A, 0x00, 0x00, 0x00,
-													//0xFF, 0x25, 0x12, 0x00, 0x00, 0x00,
-													0xEB, 0x13,
-													0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, //nops to make room for pointer (and padding)
-													0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-													0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 }; //more nops to make room for pointer (and padding)
-
-//Game stats values
-DWORD64* ptr_statsStart = 0;
-DWORD64* stat_killCount = 0;
 //FOV Values
 float default_FOV_Base_Modifier = 57.29577637;
 float default_FOV_Modifier = 1.25;
@@ -148,27 +95,7 @@ float default_Hands_FOV = 68.17;
 DWORD64* ptr_FOV_Modifier = (DWORD64*)((int)(&fp_FOV_modifier_CodeCave[52]));
 DWORD64* ptr_fp_Hands_FOV_Base_Modifier = (DWORD64*)((int)(&fp_FOV_Hands_modifier_CodeCave[92]));
 float current_Hands_FOV = default_Hands_FOV;
-//HUD Values
-boolean HUD_Enabled = true;
-float default_HUD_Scale = 1.0;
-float preferred_HUD_Scale = default_HUD_Scale;
-float current_HUD_Scale = default_HUD_Scale;
-byte current_Crosshair_Value = 1;
-byte current_Interaction_Prompts_Value = 1;
-byte current_Pickup_Prompts_Value = 1;
-byte current_Cover_Prompts_Value = 1;
-byte current_Cover2Cov_Line_Value = 1;
-byte current_Damage_Indicator_Value = 1;
-byte current_Threat_Indicator_Value = 1;
-//Achievement values
-boolean monitorPacifist = false;
-boolean noKills = true;
-//Challenge Values
-boolean regen_Enabled = true;
 
 //Addresses for lines of ASM code that will be changed (or have additional code injected at its location)
 DWORD64 fp_FOV_modifier_Instruction = 0;
 DWORD64 fp_Hands_FOV_modifier_Instruction = 0;
-DWORD64 hudScale_modifier_Instruction_block = 0;
-DWORD64 hudScale_modifier_Address = 0;
-DWORD64 regen_Instruction = 0;
