@@ -3,10 +3,12 @@
   
 ![image](https://thumbs.gfycat.com/FavorableThoseEagle-size_restricted.gif)  
 
-This mod allows you to change the Field of View in DXMD (including higher or lower values than the game normally allows) at the press of a button. It also allows you to change the rendered FoV of your hands separately, so weapon animations won't look strange on higher FoV settings.
+![image](https://thumbs.gfycat.com/EqualDeliriousGyrfalcon-size_restricted.gif)
+
+This mod allows you to [change the Field of View](https://www.youtube.com/edit?o=U&video_id=qWjd7HO216A) in [DXMD](http://store.steampowered.com/app/337000) and [Deus Ex: Breach](http://store.steampowered.com/app/555450) (including higher or lower values than the games normally support) at the press of a button. It also allows you to [change the rendered FoV of your hands separately](https://gfycat.com/EqualDeliriousGyrfalcon), so weapon animations won't look strange on higher FoV settings.
 
 ## Installation:  
-Copy dxgi.dll and DXMD_FOV.ini into the `\retail\` directory (usually `C:\Program Files (x86)\Steam\SteamApps\common\Deus Ex Mankind Divided\retail`)
+Copy dxgi.dll and DXMD_FOV.ini into the `\retail\` directory (usually `C:\Program Files (x86)\Steam\SteamApps\common\Deus Ex Mankind Divided\retail`).  
 
 
 ## Default keybinds  
