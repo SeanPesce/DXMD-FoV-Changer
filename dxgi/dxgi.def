@@ -1,22 +1,23 @@
+; Author: Sean Pesce
 LIBRARY dxgi.dll
 EXPORTS
-	ApplyCompatResolutionQuirking=ApplyCompatResolutionQuirking_wrapper @1
-	CompatString=CompatString_wrapper @2
-	CompatValue=CompatValue_wrapper @3
-	CreateDXGIFactory=CreateDXGIFactory_wrapper @11
-	CreateDXGIFactory1=CreateDXGIFactory1_wrapper @12
-	CreateDXGIFactory2=CreateDXGIFactory2_wrapper @13
-	DXGID3D10CreateDevice=DXGID3D10CreateDevice_wrapper @14
-	DXGID3D10CreateLayeredDevice=DXGID3D10CreateLayeredDevice_wrapper @15
-	DXGID3D10ETWRundown=DXGID3D10ETWRundown_wrapper @16
-	DXGID3D10GetLayeredDeviceSize=DXGID3D10GetLayeredDeviceSize_wrapper @17
-	DXGID3D10RegisterLayers=DXGID3D10RegisterLayers_wrapper @18
-	DXGIDumpJournal=DXGIDumpJournal_wrapper @4
-	DXGIGetDebugInterface1=DXGIGetDebugInterface1_wrapper @19
-	DXGIReportAdapterConfiguration=DXGIReportAdapterConfiguration_wrapper @20
-	DXGIRevertToSxS=DXGIRevertToSxS_wrapper @5
-	PIXBeginCapture=PIXBeginCapture_wrapper @6
-	PIXEndCapture=PIXEndCapture_wrapper @7
-	PIXGetCaptureState=PIXGetCaptureState_wrapper @8
-	SetAppCompatStringPointer=SetAppCompatStringPointer_wrapper @9
-	UpdateHMDEmulationStatus=UpdateHMDEmulationStatus_wrapper @10
+    ApplyCompatResolutionQuirking=ApplyCompatResolutionQuirking_wrapper @1
+    CompatString=CompatString_wrapper @2
+    CompatValue=CompatValue_wrapper @3
+    CreateDXGIFactory=CreateDXGIFactory_wrapper @11
+    CreateDXGIFactory1=CreateDXGIFactory1_wrapper @12
+    CreateDXGIFactory2=CreateDXGIFactory2_wrapper @13
+    DXGID3D10CreateDevice=DXGID3D10CreateDevice_wrapper @14
+    DXGID3D10CreateLayeredDevice=DXGID3D10CreateLayeredDevice_wrapper @15
+    DXGID3D10ETWRundown=DXGID3D10ETWRundown_wrapper @16
+    DXGID3D10GetLayeredDeviceSize=DXGID3D10GetLayeredDeviceSize_wrapper @17
+    DXGID3D10RegisterLayers=DXGID3D10RegisterLayers_wrapper @18
+    DXGIDumpJournal=DXGIDumpJournal_wrapper @4
+    DXGIGetDebugInterface1=DXGIGetDebugInterface1_wrapper @19
+    DXGIReportAdapterConfiguration=DXGIReportAdapterConfiguration_wrapper @20
+    DXGIRevertToSxS=DXGIRevertToSxS_wrapper @5
+    PIXBeginCapture=PIXBeginCapture_wrapper @6
+    PIXEndCapture=PIXEndCapture_wrapper @7
+    PIXGetCaptureState=PIXGetCaptureState_wrapper @8
+    SetAppCompatStringPointer=SetAppCompatStringPointer_wrapper @9
+    UpdateHMDEmulationStatus=UpdateHMDEmulationStatus_wrapper @10

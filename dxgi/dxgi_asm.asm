@@ -3,63 +3,63 @@
 .code
 extern mProcs:QWORD
 ApplyCompatResolutionQuirking_wrapper proc
-	jmp mProcs[0*8]
+    jmp mProcs[0*8]
 ApplyCompatResolutionQuirking_wrapper endp
 CompatString_wrapper proc
-	jmp mProcs[1*8]
+    jmp mProcs[1*8]
 CompatString_wrapper endp
 CompatValue_wrapper proc
-	jmp mProcs[2*8]
+    jmp mProcs[2*8]
 CompatValue_wrapper endp
 CreateDXGIFactory_wrapper proc
-	jmp mProcs[3*8]
+    jmp mProcs[3*8]
 CreateDXGIFactory_wrapper endp
 CreateDXGIFactory1_wrapper proc
-	jmp mProcs[4*8]
+    jmp mProcs[4*8]
 CreateDXGIFactory1_wrapper endp
 CreateDXGIFactory2_wrapper proc
-	jmp mProcs[5*8]
+    jmp mProcs[5*8]
 CreateDXGIFactory2_wrapper endp
 DXGID3D10CreateDevice_wrapper proc
-	jmp mProcs[6*8]
+    jmp mProcs[6*8]
 DXGID3D10CreateDevice_wrapper endp
 DXGID3D10CreateLayeredDevice_wrapper proc
-	jmp mProcs[7*8]
+    jmp mProcs[7*8]
 DXGID3D10CreateLayeredDevice_wrapper endp
 DXGID3D10ETWRundown_wrapper proc
-	jmp mProcs[8*8]
+    jmp mProcs[8*8]
 DXGID3D10ETWRundown_wrapper endp
 DXGID3D10GetLayeredDeviceSize_wrapper proc
-	jmp mProcs[9*8]
+    jmp mProcs[9*8]
 DXGID3D10GetLayeredDeviceSize_wrapper endp
 DXGID3D10RegisterLayers_wrapper proc
-	jmp mProcs[10*8]
+    jmp mProcs[10*8]
 DXGID3D10RegisterLayers_wrapper endp
 DXGIDumpJournal_wrapper proc
-	jmp mProcs[11*8]
+    jmp mProcs[11*8]
 DXGIDumpJournal_wrapper endp
 DXGIGetDebugInterface1_wrapper proc
-	jmp mProcs[12*8]
+    jmp mProcs[12*8]
 DXGIGetDebugInterface1_wrapper endp
 DXGIReportAdapterConfiguration_wrapper proc
-	jmp mProcs[13*8]
+    jmp mProcs[13*8]
 DXGIReportAdapterConfiguration_wrapper endp
 DXGIRevertToSxS_wrapper proc
-	jmp mProcs[14*8]
+    jmp mProcs[14*8]
 DXGIRevertToSxS_wrapper endp
 PIXBeginCapture_wrapper proc
-	jmp mProcs[15*8]
+    jmp mProcs[15*8]
 PIXBeginCapture_wrapper endp
 PIXEndCapture_wrapper proc
-	jmp mProcs[16*8]
+    jmp mProcs[16*8]
 PIXEndCapture_wrapper endp
 PIXGetCaptureState_wrapper proc
-	jmp mProcs[17*8]
+    jmp mProcs[17*8]
 PIXGetCaptureState_wrapper endp
 SetAppCompatStringPointer_wrapper proc
-	jmp mProcs[18*8]
+    jmp mProcs[18*8]
 SetAppCompatStringPointer_wrapper endp
 UpdateHMDEmulationStatus_wrapper proc
-	jmp mProcs[19*8]
+    jmp mProcs[19*8]
 UpdateHMDEmulationStatus_wrapper endp
 end
