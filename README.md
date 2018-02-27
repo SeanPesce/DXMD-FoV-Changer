@@ -24,5 +24,5 @@ You can change the keybinds and default FoVs by going to `\Deus Ex Mankind Divid
 ## **[Download the latest version here!](https://github.com/SeanPesce/DXMD-FoV-Changer/releases)**  
 
 
-If you find any bugs, please contact me on [GitHub](https://github.com/SeanPesce) or [Reddit](https://www.reddit.com/u/SeanPesce).  
+If you find any bugs, please contact me on [GitHub](https://github.com/SeanPesce/DXMD-FoV-Changer/issues/new) or [Reddit](https://www.reddit.com/u/SeanPesce).  
 
