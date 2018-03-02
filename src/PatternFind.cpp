@@ -11,7 +11,8 @@
 
 #define _DXMD_DBG_BUFF_SIZE_ 260
 
-BOOL GetModuleSize(HMODULE hModule, LPVOID* lplpBase, PDWORD64 lpdwSize) {
+BOOL GetModuleSize(HMODULE hModule, LPVOID* lplpBase, PDWORD64 lpdwSize)
+{
     if (hModule == GetModuleHandle(NULL)) {
         PIMAGE_NT_HEADERS pImageNtHeaders = ImageNtHeader((PVOID)hModule);
 
@@ -33,7 +34,8 @@ BOOL GetModuleSize(HMODULE hModule, LPVOID* lplpBase, PDWORD64 lpdwSize) {
     return TRUE;
 }
 
-DWORD PFAPI GetPatternCB(char *szPattern) {
+DWORD PFAPI GetPatternCB(char *szPattern)
+{
     DWORD cb = 0;
     bool first_nibble = false;
     for (DWORD i = 0; i<strlen(szPattern); i++) {
@@ -54,7 +56,8 @@ DWORD PFAPI GetPatternCB(char *szPattern) {
     return cb;
 }
 
-BOOL PFAPI GeneratePatternMask(char *szPattern, char *buffer) {
+BOOL PFAPI GeneratePatternMask(char *szPattern, char *buffer)
+{
     bool first_nibble = false;
     for (DWORD i = 0; i<strlen(szPattern); i++) {
         char c = toupper(szPattern[i]);
@@ -74,7 +77,8 @@ BOOL PFAPI GeneratePatternMask(char *szPattern, char *buffer) {
     return TRUE;
 }
 
-BOOL PFAPI GeneratePatternBytes(char *szPattern, LPBYTE buffer) {
+BOOL PFAPI GeneratePatternBytes(char *szPattern, LPBYTE buffer)
+{
     bool first_nibble = false;
     DWORD cb = 0;
     for (DWORD i = 0; i<strlen(szPattern); i++) {
@@ -105,8 +109,8 @@ BOOL PFAPI GeneratePatternBytes(char *szPattern, LPBYTE buffer) {
     return TRUE;
 }
 
-VOID PFAPI SearchPattern(PFSEARCH *ppf, LPVOID lpvBase, DWORD64 dwSize) {
-
+VOID PFAPI SearchPattern(PFSEARCH *ppf, LPVOID lpvBase, DWORD64 dwSize)
+{
     ppf->lpvResult = 0;
     DWORD64 dwBase = reinterpret_cast<DWORD64>(lpvBase);
     for (DWORD64 i = dwBase; i<dwBase + dwSize; i++) {
@@ -126,8 +130,8 @@ VOID PFAPI SearchPattern(PFSEARCH *ppf, LPVOID lpvBase, DWORD64 dwSize) {
     }
 }
 
-DWORD PFAPI FindPattern(char *szPattern, PFSEARCH *ppf, LPVOID lpvBase, DWORD64 dwSize) {
-
+DWORD PFAPI FindPattern(char *szPattern, PFSEARCH *ppf, LPVOID lpvBase, DWORD64 dwSize)
+{
     ZeroMemory(ppf, sizeof(PFSEARCH));
     bool invalid = false;
 
