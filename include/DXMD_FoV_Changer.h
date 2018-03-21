@@ -7,17 +7,17 @@
 #include <cstdint>
 #include <sstream>
 
-HANDLE hInitFOVChangerThread;
-HANDLE hProcess;
+HANDLE hInitFOVChangerThread = NULL;
+HANDLE hProcess = NULL;
 
-BOOL bRunningGameData;
-BOOL bRunningFOVChanger;
+BOOL bRunningGameData = FALSE;
+BOOL bRunningFOVChanger = FALSE;
 
-DWORD64  dwBase;
-LPVOID   lpvDXMDBase; // Deus Ex: Mankind Divided base address
-DWORD64  dwDXMDSize;  // Deus Ex: Mankind Divided memory size
-DWORD64* dxmdStartAddr;
-BYTE*    btdxmdStartAddr;
+DWORD64  dwBase = NULL;
+LPVOID   lpvDXMDBase = NULL; // Deus Ex: Mankind Divided base address
+DWORD64  dwDXMDSize = 0;  // Deus Ex: Mankind Divided memory size
+DWORD64* dxmdStartAddr = NULL;
+BYTE*    btdxmdStartAddr = NULL;
 
 // Methods
 void initKeybindsAndSettings();

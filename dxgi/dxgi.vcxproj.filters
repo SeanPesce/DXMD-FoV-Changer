@@ -26,9 +26,15 @@
     <None Include="dxgi.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="dxgi_win7.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="dxgi_asm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="dxgi_win7_asm.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>
@@ -43,6 +49,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Pointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sp\util\system\error\error_code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sp\util\system\error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sp\file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sp\sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sp\util\file\file_overloads.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
