@@ -1,9 +1,12 @@
 # Enhanced FoV Options for Deus Ex: Mankind Divided  
 **Author: Sean Pesce**  
-  
-![image](https://thumbs.gfycat.com/FavorableThoseEagle-size_restricted.gif)  
 
-![image](https://thumbs.gfycat.com/EqualDeliriousGyrfalcon-size_restricted.gif)
+<p align="center">
+<img align="center" title="Example FoV presets" src="https://thumbs.gfycat.com/FavorableThoseEagle-size_restricted.gif" alt="Example FoV presets (GIF of several in-game screenshots)" width="450px">
+<br><br>
+<img align="center" title="Separate FoV for first-person hands" src="https://thumbs.gfycat.com/EqualDeliriousGyrfalcon-size_restricted.gif" alt="Demo of hands FoV (GIF of several in-game screenshots)" width="450px">
+</p>  
+
 
 A mod to [change the Field of View](https://www.youtube.com/watch?v=qWjd7HO216A) in [DXMD](http://store.steampowered.com/app/337000) and [Deus Ex: Breach](http://store.steampowered.com/app/555450) at the press of a button. Most notably, this mod supports higher/lower values than the games normally allow, and lets the user [change the rendered FoV of the first-person hands separately](https://gfycat.com/EqualDeliriousGyrfalcon), so weapon animations won't look strange on higher FoV settings.  
 
@@ -30,6 +33,10 @@ If you find any bugs, please contact me on [GitHub](https://github.com/SeanPesce
 
 ## Built With  
  * [Visual Studio 2015](https://www.visualstudio.com/vs/older-downloads/)  
+
+
+## Acknowledgements  
+ * Reddit users **[lovelymelons4sale](https://www.reddit.com/user/lovelymelons4sale)**, **[Donaldduck8](https://www.reddit.com/user/Donaldduck8)**, and **[Dollynho250](https://www.reddit.com/user/Dollynho250)** - Aided in hunting down an elusive crash on Windows 7  
 
 
 ## License  
