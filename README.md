@@ -18,8 +18,8 @@ Copy **dxgi.dll** and **DXMD_FOV.ini** into the `\retail\` directory (usually `C
 ## Default key-binds  
 Increase FoV: +  
 Decrease FoV: -  
-Increase Hands FoV: period  
-Decrease Hands FoV: comma  
+Increase Hands FoV: *Disabled*  
+Decrease Hands FoV: *Disabled*  
 Restore Player Preferred FoV: Backspace  
 Restore Game default FoV: Delete  
   
