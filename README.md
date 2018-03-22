@@ -37,7 +37,7 @@ If you find any bugs, please contact me on [GitHub](https://github.com/SeanPesce
 
 
 ## Acknowledgements  
- * Reddit users **[lovelymelons4sale](https://www.reddit.com/user/lovelymelons4sale)**, **[Donaldduck8](https://www.reddit.com/user/Donaldduck8)**, and **[Dollynho250](https://www.reddit.com/user/Dollynho250)** - Aided in hunting down an elusive crash on Windows 7  
+ * Reddit users **[lovelymelons4sale](https://www.reddit.com/user/lovelymelons4sale)**, **[Donaldduck8](https://www.reddit.com/user/Donaldduck8)**, and **[Dollynho250](https://www.reddit.com/user/Dollynho250)** - Helped in determining the source of an elusive crash on Windows 7  
 
 
 ## License  
