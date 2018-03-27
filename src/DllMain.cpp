@@ -14,24 +14,19 @@ void LoadOriginalDll();
 int InitSettings();
 DWORD WINAPI FOVChangerThread(LPVOID param);
 
-const char *lib_name = "dxgi";
-#ifndef SP_WIN7_BUILD
-#define DXGI_EXPORT_COUNT_ 20
-LPCSTR mImportNames[DXGI_EXPORT_COUNT_] = { "ApplyCompatResolutionQuirking", "CompatString", "CompatValue", "CreateDXGIFactory", "CreateDXGIFactory1", "CreateDXGIFactory2", "DXGID3D10CreateDevice", "DXGID3D10CreateLayeredDevice", "DXGID3D10ETWRundown", "DXGID3D10GetLayeredDeviceSize", "DXGID3D10RegisterLayers", "DXGIDumpJournal", "DXGIGetDebugInterface1", "DXGIReportAdapterConfiguration", "DXGIRevertToSxS", "PIXBeginCapture", "PIXEndCapture", "PIXGetCaptureState", "SetAppCompatStringPointer", "UpdateHMDEmulationStatus" };
-#else
-#define DXGI_EXPORT_COUNT_ 50
-LPCSTR mImportNames[DXGI_EXPORT_COUNT_] = { "CheckETWTLS", "CompatString", "CompatValue", "CreateDXGIFactory", "CreateDXGIFactory1", "D3DKMTCloseAdapter", "D3DKMTCreateAllocation", "D3DKMTCreateContext", "D3DKMTCreateDevice", "D3DKMTCreateSynchronizationObject", "D3DKMTDestroyAllocation", "D3DKMTDestroyContext", "D3DKMTDestroyDevice", "D3DKMTDestroySynchronizationObject", "D3DKMTEscape", "D3DKMTGetContextSchedulingPriority", "D3DKMTGetDeviceState", "D3DKMTGetDisplayModeList", "D3DKMTGetMultisampleMethodList", "D3DKMTGetRuntimeData", "D3DKMTGetSharedPrimaryHandle", "D3DKMTLock", "D3DKMTOpenAdapterFromHdc", "D3DKMTOpenResource", "D3DKMTPresent", "D3DKMTQueryAdapterInfo", "D3DKMTQueryAllocationResidency", "D3DKMTQueryResourceInfo", "D3DKMTRender", "D3DKMTSetAllocationPriority", "D3DKMTSetContextSchedulingPriority", "D3DKMTSetDisplayMode", "D3DKMTSetDisplayPrivateDriverFormat", "D3DKMTSetGammaRamp", "D3DKMTSetVidPnSourceOwner", "D3DKMTSignalSynchronizationObject", "D3DKMTUnlock", "D3DKMTWaitForSynchronizationObject", "D3DKMTWaitForVerticalBlankEvent", "DXGID3D10CreateDevice", "DXGID3D10CreateLayeredDevice", "DXGID3D10ETWRundown", "DXGID3D10GetLayeredDeviceSize", "DXGID3D10RegisterLayers", "DXGIDumpJournal", "DXGIReportAdapterConfiguration", "DXGIRevertToSxS", "OpenAdapter10", "OpenAdapter10_2", "SetAppCompatStringPointer" };
-#endif // SP_WIN7_BUILD
+const char *lib_name = "version";
+#define DLL_EXPORT_COUNT_ 15
+LPCSTR mImportNames[DLL_EXPORT_COUNT_] = { "GetFileVersionInfoA", "GetFileVersionInfoByHandle", "GetFileVersionInfoExW", "GetFileVersionInfoSizeA", "GetFileVersionInfoSizeExW", "GetFileVersionInfoSizeW", "GetFileVersionInfoW", "VerFindFileA", "VerFindFileW", "VerInstallFileA", "VerInstallFileW", "VerLanguageNameA", "VerLanguageNameW", "VerQueryValueA", "VerQueryValueW" };
 
 HINSTANCE mHinst = 0, mHinstDLL = 0;
-extern "C" UINT_PTR mProcs[DXGI_EXPORT_COUNT_] = { 0 };
+extern "C" UINT_PTR mProcs[DLL_EXPORT_COUNT_] = { 0 };
 
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
     mHinst = hinstDLL;
     if (fdwReason == DLL_PROCESS_ATTACH) {
-        sp::util::file::write_text(log_file, "Attached to process");
+        sp::util::file::write_text(log_file, "+--------------------+\r\n|    DXMD FoV Mod    |\r\n| Author: Sean Pesce |\r\n+--------------------+\r\nCompiled: " __DATE__ "  " __TIME__ "\r\n\r\nAttached to process.");
         InitSettings();
         sp::util::file::append_text(log_file, "Finished loading settings.");
         if (!mHinstDLL) {
@@ -43,7 +38,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
             return FALSE;
         }
         sp::util::file::append_text(log_file, "Loading exported funcs...");
-        for (int i = 0; i < DXGI_EXPORT_COUNT_; i++) {
+        for (int i = 0; i < DLL_EXPORT_COUNT_; i++) {
             mProcs[i] = (UINT_PTR)GetProcAddress(mHinstDLL, mImportNames[i]);
         }
         lpvDXMDBase = NULL;
@@ -67,74 +62,25 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
     return TRUE;
 }
 
-#ifndef SP_WIN7_BUILD
 
-extern "C" void ApplyCompatResolutionQuirking_wrapper();
-extern "C" void CompatString_wrapper();
-extern "C" void CompatValue_wrapper();
-extern "C" void CreateDXGIFactory_wrapper();
-extern "C" void CreateDXGIFactory1_wrapper();
-extern "C" void CreateDXGIFactory2_wrapper();
-extern "C" void DXGID3D10CreateDevice_wrapper();
-extern "C" void DXGID3D10CreateLayeredDevice_wrapper();
-extern "C" void DXGID3D10ETWRundown_wrapper();
-extern "C" void DXGID3D10GetLayeredDeviceSize_wrapper();
-extern "C" void DXGID3D10RegisterLayers_wrapper();
-extern "C" void DXGIDumpJournal_wrapper();
-extern "C" void DXGIGetDebugInterface1_wrapper();
-extern "C" void DXGIReportAdapterConfiguration_wrapper();
-extern "C" void DXGIRevertToSxS_wrapper();
-extern "C" void PIXBeginCapture_wrapper();
-extern "C" void PIXEndCapture_wrapper();
-extern "C" void PIXGetCaptureState_wrapper();
-extern "C" void SetAppCompatStringPointer_wrapper();
-extern "C" void UpdateHMDEmulationStatus_wrapper();
+extern "C" void GetFileVersionInfoA_wrapper();
+extern "C" void GetFileVersionInfoByHandle_wrapper();
+extern "C" void GetFileVersionInfoExW_wrapper();
+extern "C" void GetFileVersionInfoSizeA_wrapper();
+extern "C" void GetFileVersionInfoSizeExW_wrapper();
+extern "C" void GetFileVersionInfoSizeW_wrapper();
+extern "C" void GetFileVersionInfoW_wrapper();
+extern "C" void VerFindFileA_wrapper();
+extern "C" void VerFindFileW_wrapper();
+extern "C" void VerInstallFileA_wrapper();
+extern "C" void VerInstallFileW_wrapper();
+extern "C" void VerLanguageNameA_wrapper();
+extern "C" void VerLanguageNameW_wrapper();
+extern "C" void VerQueryValueA_wrapper();
+extern "C" void VerQueryValueW_wrapper();
 
-#else
-
-// Win7-specific exports
-extern "C" void CheckETWTLS_wrapper();
-extern "C" void D3DKMTCloseAdapter_wrapper();
-extern "C" void D3DKMTCreateAllocation_wrapper();
-extern "C" void D3DKMTCreateContext_wrapper();
-extern "C" void D3DKMTCreateDevice_wrapper();
-extern "C" void D3DKMTCreateSynchronizationObject_wrapper();
-extern "C" void D3DKMTDestroyAllocation_wrapper();
-extern "C" void D3DKMTDestroyContext_wrapper();
-extern "C" void D3DKMTDestroyDevice_wrapper();
-extern "C" void D3DKMTDestroySynchronizationObject_wrapper();
-extern "C" void D3DKMTEscape_wrapper();
-extern "C" void D3DKMTGetContextSchedulingPriority_wrapper();
-extern "C" void D3DKMTGetDeviceState_wrapper();
-extern "C" void D3DKMTGetDisplayModeList_wrapper();
-extern "C" void D3DKMTGetMultisampleMethodList_wrapper();
-extern "C" void D3DKMTGetRuntimeData_wrapper();
-extern "C" void D3DKMTGetSharedPrimaryHandle_wrapper();
-extern "C" void D3DKMTLock_wrapper();
-extern "C" void D3DKMTOpenAdapterFromHdc_wrapper();
-extern "C" void D3DKMTOpenResource_wrapper();
-extern "C" void D3DKMTPresent_wrapper();
-extern "C" void D3DKMTQueryAdapterInfo_wrapper();
-extern "C" void D3DKMTQueryAllocationResidency_wrapper();
-extern "C" void D3DKMTQueryResourceInfo_wrapper();
-extern "C" void D3DKMTRender_wrapper();
-extern "C" void D3DKMTSetAllocationPriority_wrapper();
-extern "C" void D3DKMTSetContextSchedulingPriority_wrapper();
-extern "C" void D3DKMTSetDisplayMode_wrapper();
-extern "C" void D3DKMTSetDisplayPrivateDriverFormat_wrapper();
-extern "C" void D3DKMTSetGammaRamp_wrapper();
-extern "C" void D3DKMTSetVidPnSourceOwner_wrapper();
-extern "C" void D3DKMTSignalSynchronizationObject_wrapper();
-extern "C" void D3DKMTUnlock_wrapper();
-extern "C" void D3DKMTWaitForSynchronizationObject_wrapper();
-extern "C" void D3DKMTWaitForVerticalBlankEvent_wrapper();
-extern "C" void OpenAdapter10_wrapper();
-extern "C" void OpenAdapter10_2_wrapper();
-
-#endif // SP_WIN7_BUILD
 
 // Loads the original DLL from the default system directory
-//    (Original function by Michael Koch)
 void LoadOriginalDll()
 {
     sp::util::file::append_text(log_file, "Loading original DLL...");
@@ -167,7 +113,7 @@ int InitSettings()
     char dll_chain_buffer[128];
     // Check settings file for DLL chain
     sp::util::file::append_text(log_file, "DLL chain:");
-    GetPrivateProfileString("dxgi", "DLL_Chain", NULL, dll_chain_buffer, 128, cfg_file);
+    GetPrivateProfileString("DLL", "DLL_Chain", NULL, dll_chain_buffer, 128, cfg_file);
 
     if (dll_chain_buffer[0] != '\0') { // Found DLL_Chain entry in settings file
         sp::util::file::append_text(log_file, std::string("    \"") + dll_chain_buffer + std::string("\""));
@@ -197,7 +143,6 @@ void initKeybindsAndSettings()
     hsSounds << std::hex << onOff;
     hsSounds >> enableBeeps;
     sp::util::file::append_text(log_file, std::string("    Beeps enabled? ") + std::to_string(enableBeeps));
-
 
     if (enableBeeps != 1 && enableBeeps != 0) {
         // If beep value is not valid, set to default (0, disabled)
