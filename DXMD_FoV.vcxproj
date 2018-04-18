@@ -165,7 +165,6 @@
     <ClInclude Include="include\DXMD_FoV_Changer.h" />
     <ClInclude Include="include\InjectAssembly.h" />
     <ClInclude Include="include\PatternFind.h" />
-    <ClInclude Include="include\Pointer.h" />
     <ClInclude Include="include\sp\file.h" />
     <ClInclude Include="include\sp\sp.h" />
     <ClInclude Include="include\sp\util\file\file_overloads.hpp" />

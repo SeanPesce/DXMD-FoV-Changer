@@ -26,9 +26,6 @@
     <ClInclude Include="include\sp\sp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Pointer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\PatternFind.h">
       <Filter>Header Files</Filter>
     </ClInclude>

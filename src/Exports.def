@@ -1,18 +1,18 @@
 ; Author: Sean Pesce
 LIBRARY version.dll
 EXPORTS
-	GetFileVersionInfoA=GetFileVersionInfoA_wrapper @1
-	GetFileVersionInfoByHandle=GetFileVersionInfoByHandle_wrapper @2
-	GetFileVersionInfoExW=GetFileVersionInfoExW_wrapper @3
-	GetFileVersionInfoSizeA=GetFileVersionInfoSizeA_wrapper @4
-	GetFileVersionInfoSizeExW=GetFileVersionInfoSizeExW_wrapper @5
-	GetFileVersionInfoSizeW=GetFileVersionInfoSizeW_wrapper @6
-	GetFileVersionInfoW=GetFileVersionInfoW_wrapper @7
-	VerFindFileA=VerFindFileA_wrapper @8
-	VerFindFileW=VerFindFileW_wrapper @9
-	VerInstallFileA=VerInstallFileA_wrapper @10
-	VerInstallFileW=VerInstallFileW_wrapper @11
-	VerLanguageNameA=VerLanguageNameA_wrapper @12
-	VerLanguageNameW=VerLanguageNameW_wrapper @13
-	VerQueryValueA=VerQueryValueA_wrapper @14
-	VerQueryValueW=VerQueryValueW_wrapper @15
+    GetFileVersionInfoA=GetFileVersionInfoA_wrapper @1
+    GetFileVersionInfoByHandle=GetFileVersionInfoByHandle_wrapper @2
+    GetFileVersionInfoExW=GetFileVersionInfoExW_wrapper @3
+    GetFileVersionInfoSizeA=GetFileVersionInfoSizeA_wrapper @4
+    GetFileVersionInfoSizeExW=GetFileVersionInfoSizeExW_wrapper @5
+    GetFileVersionInfoSizeW=GetFileVersionInfoSizeW_wrapper @6
+    GetFileVersionInfoW=GetFileVersionInfoW_wrapper @7
+    VerFindFileA=VerFindFileA_wrapper @8
+    VerFindFileW=VerFindFileW_wrapper @9
+    VerInstallFileA=VerInstallFileA_wrapper @10
+    VerInstallFileW=VerInstallFileW_wrapper @11
+    VerLanguageNameA=VerLanguageNameA_wrapper @12
+    VerLanguageNameW=VerLanguageNameW_wrapper @13
+    VerQueryValueA=VerQueryValueA_wrapper @14
+    VerQueryValueW=VerQueryValueW_wrapper @15
