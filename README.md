@@ -33,7 +33,8 @@ If you find any bugs, please contact me on [GitHub](https://github.com/SeanPesce
 
 
 ## Built With  
- * [Visual Studio 2015](https://www.visualstudio.com/vs/older-downloads/)  
+ * [Visual Studio](https://www.visualstudio.com/)  
+ * [Stephan Brumme's Portable C++ Hashing Library](https://github.com/stbrumme/hash-library)  
 
 
 ## Acknowledgements  
