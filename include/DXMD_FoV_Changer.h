@@ -2,17 +2,36 @@
 
 #pragma once
 
+
 #include <Windows.h>
 #include <stdio.h>
 #include <cstdint>
 #include <sstream>
 
+#include <psapi.h>
+#include <dbghelp.h>
+#include <Objbase.h>
+#pragma  comment(lib, "dbghelp")
+#pragma  comment(lib, "psapi")
+
+#include <inttypes.h>
+#include <filesystem>
+
+#include "sp/environment.h"
+#include "sp/file.h"
+#include "sp/io/powershell_ostream.h"
+
+#include "../include/PatternFind.h"
+
+#include "lib/stbrumme_md5.h"
+
+
 HANDLE fov_changer_thread_handle = NULL;
 
 BOOL running = FALSE;
 
-LPVOID  dxmd_base = NULL; // Deus Ex: Mankind Divided base address
-DWORD64 dxmd_size = 0;    // Deus Ex: Mankind Divided memory size
+LPVOID  dxmd_base = NULL; // DXMD.exe base address
+DWORD64 dxmd_size = 0;    // DXMD.exe memory size
 
 // Methods
 void init_settings();

@@ -13,38 +13,134 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\lib">
+      <UniqueIdentifier>{6fa87f57-1a83-4c01-b6dc-7e61bc762be0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib">
+      <UniqueIdentifier>{f700402c-c480-4432-9ae2-9a7c8bb75d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp">
+      <UniqueIdentifier>{304a5440-0581-4244-b9f8-df37537fb18c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\error">
+      <UniqueIdentifier>{ce8d8fbf-668a-43bd-9d0a-1fd62ab2920c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\io">
+      <UniqueIdentifier>{b958d266-6296-4bc8-8478-edcf9debedb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\memory">
+      <UniqueIdentifier>{29fe2c34-f922-4929-ad2f-72686866bee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\memory\injection">
+      <UniqueIdentifier>{e3004949-b6df-4161-8f98-c7c8f627aefd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\memory\injection\asm">
+      <UniqueIdentifier>{a545614b-a14e-4d95-97ab-24f7799cbfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\os">
+      <UniqueIdentifier>{b97f2cb6-d8f5-4056-b37b-6373e7e018d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\string">
+      <UniqueIdentifier>{da787d52-ff8e-41a2-8cc9-854c0131c289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\system">
+      <UniqueIdentifier>{db312be4-cb00-4210-90b8-27f283c7800f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\system\process">
+      <UniqueIdentifier>{00e38ed0-af1c-4c4b-ac0b-05e078102b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib\sp\file">
+      <UniqueIdentifier>{276b4a9e-3107-4793-946f-f53316a20045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lib\sp">
+      <UniqueIdentifier>{8c1383d8-f992-49d5-b8b0-8207051ea0c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DllMain.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\stbrumme_md5.cpp">
+      <Filter>Source Files\lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sp\powershell_ostream.cpp">
+      <Filter>Source Files\lib\sp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sp\string_.cpp">
+      <Filter>Source Files\lib\sp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sp\x64.cpp">
+      <Filter>Source Files\lib\sp</Filter>
     </ClCompile>
     <ClCompile Include="src\PatternFind.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\sp\sp.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\sp\environment.h">
+      <Filter>Header Files\lib\sp</Filter>
     </ClInclude>
-    <ClInclude Include="include\PatternFind.h">
+    <ClInclude Include="include\sp\error_.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\file.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\memory.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\os.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\sp.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\string_.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\utilities.h">
+      <Filter>Header Files\lib\sp</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\error\error_code.h">
+      <Filter>Header Files\lib\sp\error</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\io\cmd_ostream.h">
+      <Filter>Header Files\lib\sp\io</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\io\powershell_ostream.h">
+      <Filter>Header Files\lib\sp\io</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\memory\injection\asm\x64.h">
+      <Filter>Header Files\lib\sp\memory\injection\asm</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\os\unix.h">
+      <Filter>Header Files\lib\sp\os</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\os\win.h">
+      <Filter>Header Files\lib\sp\os</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\string\string_overloads.h">
+      <Filter>Header Files\lib\sp\string</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\system\process.h">
+      <Filter>Header Files\lib\sp\system</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\system\process\child.h">
+      <Filter>Header Files\lib\sp\system\process</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sp\file\file_overloads.hpp">
+      <Filter>Header Files\lib\sp\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\lib\stbrumme_md5.h">
+      <Filter>Header Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DXMD_FoV_Changer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\InjectAssembly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\sp\util\file\file_overloads.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sp\file.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sp\util\system\error\error_code.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sp\util\system\error.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DXMD_FoV_Changer.h">
+    <ClInclude Include="include\PatternFind.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,7 +150,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="src\Hooks.asm">
+    <MASM Include="src\Exports.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>

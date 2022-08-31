@@ -236,7 +236,7 @@ long write_text(const std::basic_string<charT> &file, const std::basic_string<ch
         // Failed to open output file
         return SP_ERR_WRITE;
     }
-    out << data << std::endl;
+    //out << data << std::endl;
     out.close();
     return SP_ERR_SUCCESS;
 }
@@ -251,7 +251,7 @@ long append_text(const std::basic_string<charT> &file, const std::basic_string<c
         // Failed to open output file
         return SP_ERR_WRITE;
     }
-    out << data << std::endl;
+    //out << data << std::endl;
     out.close();
     return SP_ERR_SUCCESS;
 }
@@ -262,7 +262,7 @@ long append_text(const std::basic_string<charT> &file, const std::basic_string<c
 __SP_NAMESPACE_CLOSE // namespace sp
 
 
-#include "util/file/file_overloads.hpp"
+#include "file/file_overloads.hpp"
 
 
 #endif // SP_UTILITY_FILE_H_
