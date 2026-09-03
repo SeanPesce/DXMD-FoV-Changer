@@ -2,49 +2,223 @@
 
 .code
 extern export_locs:QWORD
-GetFileVersionInfoA_wrapper proc
-    jmp export_locs[0*8]
-GetFileVersionInfoA_wrapper endp
-GetFileVersionInfoByHandle_wrapper proc
-    jmp export_locs[1*8]
-GetFileVersionInfoByHandle_wrapper endp
-GetFileVersionInfoExW_wrapper proc
-    jmp export_locs[2*8]
-GetFileVersionInfoExW_wrapper endp
-GetFileVersionInfoSizeA_wrapper proc
-    jmp export_locs[3*8]
-GetFileVersionInfoSizeA_wrapper endp
-GetFileVersionInfoSizeExW_wrapper proc
-    jmp export_locs[4*8]
-GetFileVersionInfoSizeExW_wrapper endp
-GetFileVersionInfoSizeW_wrapper proc
-    jmp export_locs[5*8]
-GetFileVersionInfoSizeW_wrapper endp
-GetFileVersionInfoW_wrapper proc
-    jmp export_locs[6*8]
-GetFileVersionInfoW_wrapper endp
-VerFindFileA_wrapper proc
-    jmp export_locs[7*8]
-VerFindFileA_wrapper endp
-VerFindFileW_wrapper proc
-    jmp export_locs[8*8]
-VerFindFileW_wrapper endp
-VerInstallFileA_wrapper proc
-    jmp export_locs[9*8]
-VerInstallFileA_wrapper endp
-VerInstallFileW_wrapper proc
-    jmp export_locs[10*8]
-VerInstallFileW_wrapper endp
-VerLanguageNameA_wrapper proc
-    jmp export_locs[11*8]
-VerLanguageNameA_wrapper endp
-VerLanguageNameW_wrapper proc
-    jmp export_locs[12*8]
-VerLanguageNameW_wrapper endp
-VerQueryValueA_wrapper proc
-    jmp export_locs[13*8]
-VerQueryValueA_wrapper endp
-VerQueryValueW_wrapper proc
-    jmp export_locs[14*8]
-VerQueryValueW_wrapper endp
+BinkAllocateFrameBuffers_wrapper proc
+	jmp export_locs[0*8]
+BinkAllocateFrameBuffers_wrapper endp
+BinkClose_wrapper proc
+	jmp export_locs[1*8]
+BinkClose_wrapper endp
+BinkCloseTrack_wrapper proc
+	jmp export_locs[2*8]
+BinkCloseTrack_wrapper endp
+BinkControlBackgroundIO_wrapper proc
+	jmp export_locs[3*8]
+BinkControlBackgroundIO_wrapper endp
+BinkCopyToBuffer_wrapper proc
+	jmp export_locs[4*8]
+BinkCopyToBuffer_wrapper endp
+BinkCopyToBufferRect_wrapper proc
+	jmp export_locs[5*8]
+BinkCopyToBufferRect_wrapper endp
+BinkDoFrame_wrapper proc
+	jmp export_locs[6*8]
+BinkDoFrame_wrapper endp
+BinkDoFrameAsync_wrapper proc
+	jmp export_locs[7*8]
+BinkDoFrameAsync_wrapper endp
+BinkDoFrameAsyncMulti_wrapper proc
+	jmp export_locs[8*8]
+BinkDoFrameAsyncMulti_wrapper endp
+BinkDoFrameAsyncWait_wrapper proc
+	jmp export_locs[9*8]
+BinkDoFrameAsyncWait_wrapper endp
+BinkDoFramePlane_wrapper proc
+	jmp export_locs[10*8]
+BinkDoFramePlane_wrapper endp
+BinkFreeGlobals_wrapper proc
+	jmp export_locs[11*8]
+BinkFreeGlobals_wrapper endp
+BinkGetError_wrapper proc
+	jmp export_locs[12*8]
+BinkGetError_wrapper endp
+BinkGetFrameBuffersInfo_wrapper proc
+	jmp export_locs[13*8]
+BinkGetFrameBuffersInfo_wrapper endp
+BinkGetGPUDataBuffersInfo_wrapper proc
+	jmp export_locs[14*8]
+BinkGetGPUDataBuffersInfo_wrapper endp
+BinkGetKeyFrame_wrapper proc
+	jmp export_locs[15*8]
+BinkGetKeyFrame_wrapper endp
+BinkGetPlatformInfo_wrapper proc
+	jmp export_locs[16*8]
+BinkGetPlatformInfo_wrapper endp
+BinkGetRealtime_wrapper proc
+	jmp export_locs[17*8]
+BinkGetRealtime_wrapper endp
+BinkGetRects_wrapper proc
+	jmp export_locs[18*8]
+BinkGetRects_wrapper endp
+BinkGetSummary_wrapper proc
+	jmp export_locs[19*8]
+BinkGetSummary_wrapper endp
+BinkGetTrackData_wrapper proc
+	jmp export_locs[20*8]
+BinkGetTrackData_wrapper endp
+BinkGetTrackID_wrapper proc
+	jmp export_locs[21*8]
+BinkGetTrackID_wrapper endp
+BinkGetTrackMaxSize_wrapper proc
+	jmp export_locs[22*8]
+BinkGetTrackMaxSize_wrapper endp
+BinkGetTrackType_wrapper proc
+	jmp export_locs[23*8]
+BinkGetTrackType_wrapper endp
+BinkGoto_wrapper proc
+	jmp export_locs[24*8]
+BinkGoto_wrapper endp
+BinkLogoAddress_wrapper proc
+	jmp export_locs[25*8]
+BinkLogoAddress_wrapper endp
+BinkNextFrame_wrapper proc
+	jmp export_locs[26*8]
+BinkNextFrame_wrapper endp
+BinkOpen_wrapper proc
+	jmp export_locs[27*8]
+BinkOpen_wrapper endp
+BinkOpenDirectSound_wrapper proc
+	jmp export_locs[28*8]
+BinkOpenDirectSound_wrapper endp
+BinkOpenMiles_wrapper proc
+	jmp export_locs[29*8]
+BinkOpenMiles_wrapper endp
+BinkOpenTrack_wrapper proc
+	jmp export_locs[30*8]
+BinkOpenTrack_wrapper endp
+BinkOpenWaveOut_wrapper proc
+	jmp export_locs[31*8]
+BinkOpenWaveOut_wrapper endp
+BinkOpenWithOptions_wrapper proc
+	jmp export_locs[32*8]
+BinkOpenWithOptions_wrapper endp
+BinkOpenXAudio2_wrapper proc
+	jmp export_locs[33*8]
+BinkOpenXAudio2_wrapper endp
+BinkOpenXAudio27_wrapper proc
+	jmp export_locs[34*8]
+BinkOpenXAudio27_wrapper endp
+BinkOpenXAudio28_wrapper proc
+	jmp export_locs[35*8]
+BinkOpenXAudio28_wrapper endp
+BinkPause_wrapper proc
+	jmp export_locs[36*8]
+BinkPause_wrapper endp
+BinkRegisterFrameBuffers_wrapper proc
+	jmp export_locs[37*8]
+BinkRegisterFrameBuffers_wrapper endp
+BinkRegisterGPUDataBuffers_wrapper proc
+	jmp export_locs[38*8]
+BinkRegisterGPUDataBuffers_wrapper endp
+BinkRequestStopAsyncThread_wrapper proc
+	jmp export_locs[39*8]
+BinkRequestStopAsyncThread_wrapper endp
+BinkRequestStopAsyncThreadsMulti_wrapper proc
+	jmp export_locs[40*8]
+BinkRequestStopAsyncThreadsMulti_wrapper endp
+BinkService_wrapper proc
+	jmp export_locs[41*8]
+BinkService_wrapper endp
+BinkSetError_wrapper proc
+	jmp export_locs[42*8]
+BinkSetError_wrapper endp
+BinkSetFileOffset_wrapper proc
+	jmp export_locs[43*8]
+BinkSetFileOffset_wrapper endp
+BinkSetFrameRate_wrapper proc
+	jmp export_locs[44*8]
+BinkSetFrameRate_wrapper endp
+BinkSetIO_wrapper proc
+	jmp export_locs[45*8]
+BinkSetIO_wrapper endp
+BinkSetIOSize_wrapper proc
+	jmp export_locs[46*8]
+BinkSetIOSize_wrapper endp
+BinkSetMemory_wrapper proc
+	jmp export_locs[47*8]
+BinkSetMemory_wrapper endp
+BinkSetOSFileCallbacks_wrapper proc
+	jmp export_locs[48*8]
+BinkSetOSFileCallbacks_wrapper endp
+BinkSetPan_wrapper proc
+	jmp export_locs[49*8]
+BinkSetPan_wrapper endp
+BinkSetSimulate_wrapper proc
+	jmp export_locs[50*8]
+BinkSetSimulate_wrapper endp
+BinkSetSoundOnOff_wrapper proc
+	jmp export_locs[51*8]
+BinkSetSoundOnOff_wrapper endp
+BinkSetSoundSystem_wrapper proc
+	jmp export_locs[52*8]
+BinkSetSoundSystem_wrapper endp
+BinkSetSoundSystem2_wrapper proc
+	jmp export_locs[53*8]
+BinkSetSoundSystem2_wrapper endp
+BinkSetSoundTrack_wrapper proc
+	jmp export_locs[54*8]
+BinkSetSoundTrack_wrapper endp
+BinkSetSpeakerVolumes_wrapper proc
+	jmp export_locs[55*8]
+BinkSetSpeakerVolumes_wrapper endp
+BinkSetVideoOnOff_wrapper proc
+	jmp export_locs[56*8]
+BinkSetVideoOnOff_wrapper endp
+BinkSetVolume_wrapper proc
+	jmp export_locs[57*8]
+BinkSetVolume_wrapper endp
+BinkSetWillLoop_wrapper proc
+	jmp export_locs[58*8]
+BinkSetWillLoop_wrapper endp
+BinkShouldSkip_wrapper proc
+	jmp export_locs[59*8]
+BinkShouldSkip_wrapper endp
+BinkStartAsyncThread_wrapper proc
+	jmp export_locs[60*8]
+BinkStartAsyncThread_wrapper endp
+BinkUtilCPUs_wrapper proc
+	jmp export_locs[61*8]
+BinkUtilCPUs_wrapper endp
+BinkUtilFree_wrapper proc
+	jmp export_locs[62*8]
+BinkUtilFree_wrapper endp
+BinkUtilMalloc_wrapper proc
+	jmp export_locs[63*8]
+BinkUtilMalloc_wrapper endp
+BinkUtilMutexCreate_wrapper proc
+	jmp export_locs[64*8]
+BinkUtilMutexCreate_wrapper endp
+BinkUtilMutexDestroy_wrapper proc
+	jmp export_locs[65*8]
+BinkUtilMutexDestroy_wrapper endp
+BinkUtilMutexLock_wrapper proc
+	jmp export_locs[66*8]
+BinkUtilMutexLock_wrapper endp
+BinkUtilMutexLockTimeOut_wrapper proc
+	jmp export_locs[67*8]
+BinkUtilMutexLockTimeOut_wrapper endp
+BinkUtilMutexUnlock_wrapper proc
+	jmp export_locs[68*8]
+BinkUtilMutexUnlock_wrapper endp
+BinkWait_wrapper proc
+	jmp export_locs[69*8]
+BinkWait_wrapper endp
+BinkWaitStopAsyncThread_wrapper proc
+	jmp export_locs[70*8]
+BinkWaitStopAsyncThread_wrapper endp
+BinkWaitStopAsyncThreadsMulti_wrapper proc
+	jmp export_locs[71*8]
+BinkWaitStopAsyncThreadsMulti_wrapper endp
+RADTimerRead_wrapper proc
+	jmp export_locs[72*8]
+RADTimerRead_wrapper endp
 end

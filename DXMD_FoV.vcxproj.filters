@@ -148,10 +148,27 @@
     <None Include="src\Exports.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="src\Exports_version.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="rsrc\bink2w64.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="rsrc\scripts\compress_original_dll.ps1">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\Exports.asm">
       <Filter>Source Files</Filter>
     </MASM>
+    <MASM Include="src\Exports_version.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

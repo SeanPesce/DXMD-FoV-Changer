@@ -1,0 +1,13 @@
+// Author: Sean Pesce
+//
+// Embedded resources for non-version.dll builds. The original bink2w64.dll is
+// bundled in XPRESS_HUFF-compressed form (see rsrc/scripts/compress_original_dll.ps1)
+// so that load_original_dll() can decompress and load it as a fallback when the
+// system directory does not contain the DLL. The blob is prefixed with a 4-byte
+// little-endian uncompressed size, followed by the compressed stream.
+
+#include <windows.h>
+
+#ifndef USE_VERSION_DLL
+BINK2W64_DLL RCDATA "../rsrc/bink2w64.dll.xpress"
+#endif

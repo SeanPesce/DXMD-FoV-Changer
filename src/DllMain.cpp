@@ -3,6 +3,12 @@
 #include "../include/DXMD_FoV_Changer.h"
 #include "../include/InjectAssembly.h"
 
+#ifndef USE_VERSION_DLL
+    #include <compressapi.h>
+    #include <vector>
+    #pragma comment(lib, "Cabinet.lib")
+#endif
+
 
 const char *cfg_file = ".\\DXMD_FoV.ini";
 sp::io::ps_ostream debug;
@@ -16,9 +22,15 @@ void init_settings();
 HANDLE async_thread_handle = NULL;
 DWORD WINAPI async_thread(LPVOID param);
 
-const char *lib_name = "version";
-#define DLL_EXPORT_COUNT_ 15
-LPCSTR import_names[DLL_EXPORT_COUNT_] = { "GetFileVersionInfoA", "GetFileVersionInfoByHandle", "GetFileVersionInfoExW", "GetFileVersionInfoSizeA", "GetFileVersionInfoSizeExW", "GetFileVersionInfoSizeW", "GetFileVersionInfoW", "VerFindFileA", "VerFindFileW", "VerInstallFileA", "VerInstallFileW", "VerLanguageNameA", "VerLanguageNameW", "VerQueryValueA", "VerQueryValueW" };
+#ifdef USE_VERSION_DLL
+    const char *lib_name = "version";
+    #define DLL_EXPORT_COUNT_ 15
+    LPCSTR import_names[DLL_EXPORT_COUNT_] = { "GetFileVersionInfoA", "GetFileVersionInfoByHandle", "GetFileVersionInfoExW", "GetFileVersionInfoSizeA", "GetFileVersionInfoSizeExW", "GetFileVersionInfoSizeW", "GetFileVersionInfoW", "VerFindFileA", "VerFindFileW", "VerInstallFileA", "VerInstallFileW", "VerLanguageNameA", "VerLanguageNameW", "VerQueryValueA", "VerQueryValueW" };
+#else
+    const char *lib_name = "bink2w64";
+    #define DLL_EXPORT_COUNT_ 73
+    LPCSTR import_names[DLL_EXPORT_COUNT_] = {"BinkAllocateFrameBuffers", "BinkClose", "BinkCloseTrack", "BinkControlBackgroundIO", "BinkCopyToBuffer", "BinkCopyToBufferRect", "BinkDoFrame", "BinkDoFrameAsync", "BinkDoFrameAsyncMulti", "BinkDoFrameAsyncWait", "BinkDoFramePlane", "BinkFreeGlobals", "BinkGetError", "BinkGetFrameBuffersInfo", "BinkGetGPUDataBuffersInfo", "BinkGetKeyFrame", "BinkGetPlatformInfo", "BinkGetRealtime", "BinkGetRects", "BinkGetSummary", "BinkGetTrackData", "BinkGetTrackID", "BinkGetTrackMaxSize", "BinkGetTrackType", "BinkGoto", "BinkLogoAddress", "BinkNextFrame", "BinkOpen", "BinkOpenDirectSound", "BinkOpenMiles", "BinkOpenTrack", "BinkOpenWaveOut", "BinkOpenWithOptions", "BinkOpenXAudio2", "BinkOpenXAudio27", "BinkOpenXAudio28", "BinkPause", "BinkRegisterFrameBuffers", "BinkRegisterGPUDataBuffers", "BinkRequestStopAsyncThread", "BinkRequestStopAsyncThreadsMulti", "BinkService", "BinkSetError", "BinkSetFileOffset", "BinkSetFrameRate", "BinkSetIO", "BinkSetIOSize", "BinkSetMemory", "BinkSetOSFileCallbacks", "BinkSetPan", "BinkSetSimulate", "BinkSetSoundOnOff", "BinkSetSoundSystem", "BinkSetSoundSystem2", "BinkSetSoundTrack", "BinkSetSpeakerVolumes", "BinkSetVideoOnOff", "BinkSetVolume", "BinkSetWillLoop", "BinkShouldSkip", "BinkStartAsyncThread", "BinkUtilCPUs", "BinkUtilFree", "BinkUtilMalloc", "BinkUtilMutexCreate", "BinkUtilMutexDestroy", "BinkUtilMutexLock", "BinkUtilMutexLockTimeOut", "BinkUtilMutexUnlock", "BinkWait", "BinkWaitStopAsyncThread", "BinkWaitStopAsyncThreadsMulti", "RADTimerRead"};
+#endif
 
 HINSTANCE dll_instance = NULL;
 HINSTANCE dll_chain_instance = NULL;
@@ -120,21 +132,97 @@ BOOL WINAPI DllMain(HINSTANCE hinst_dll, DWORD fdw_reason, LPVOID lpv_reserved)
 }
 
 
-extern "C" void GetFileVersionInfoA_wrapper();
-extern "C" void GetFileVersionInfoByHandle_wrapper();
-extern "C" void GetFileVersionInfoExW_wrapper();
-extern "C" void GetFileVersionInfoSizeA_wrapper();
-extern "C" void GetFileVersionInfoSizeExW_wrapper();
-extern "C" void GetFileVersionInfoSizeW_wrapper();
-extern "C" void GetFileVersionInfoW_wrapper();
-extern "C" void VerFindFileA_wrapper();
-extern "C" void VerFindFileW_wrapper();
-extern "C" void VerInstallFileA_wrapper();
-extern "C" void VerInstallFileW_wrapper();
-extern "C" void VerLanguageNameA_wrapper();
-extern "C" void VerLanguageNameW_wrapper();
-extern "C" void VerQueryValueA_wrapper();
-extern "C" void VerQueryValueW_wrapper();
+#ifdef USE_VERSION_DLL
+    extern "C" void GetFileVersionInfoA_wrapper();
+    extern "C" void GetFileVersionInfoByHandle_wrapper();
+    extern "C" void GetFileVersionInfoExW_wrapper();
+    extern "C" void GetFileVersionInfoSizeA_wrapper();
+    extern "C" void GetFileVersionInfoSizeExW_wrapper();
+    extern "C" void GetFileVersionInfoSizeW_wrapper();
+    extern "C" void GetFileVersionInfoW_wrapper();
+    extern "C" void VerFindFileA_wrapper();
+    extern "C" void VerFindFileW_wrapper();
+    extern "C" void VerInstallFileA_wrapper();
+    extern "C" void VerInstallFileW_wrapper();
+    extern "C" void VerLanguageNameA_wrapper();
+    extern "C" void VerLanguageNameW_wrapper();
+    extern "C" void VerQueryValueA_wrapper();
+    extern "C" void VerQueryValueW_wrapper();
+#else
+    extern "C" void BinkAllocateFrameBuffers_wrapper();
+    extern "C" void BinkClose_wrapper();
+    extern "C" void BinkCloseTrack_wrapper();
+    extern "C" void BinkControlBackgroundIO_wrapper();
+    extern "C" void BinkCopyToBuffer_wrapper();
+    extern "C" void BinkCopyToBufferRect_wrapper();
+    extern "C" void BinkDoFrame_wrapper();
+    extern "C" void BinkDoFrameAsync_wrapper();
+    extern "C" void BinkDoFrameAsyncMulti_wrapper();
+    extern "C" void BinkDoFrameAsyncWait_wrapper();
+    extern "C" void BinkDoFramePlane_wrapper();
+    extern "C" void BinkFreeGlobals_wrapper();
+    extern "C" void BinkGetError_wrapper();
+    extern "C" void BinkGetFrameBuffersInfo_wrapper();
+    extern "C" void BinkGetGPUDataBuffersInfo_wrapper();
+    extern "C" void BinkGetKeyFrame_wrapper();
+    extern "C" void BinkGetPlatformInfo_wrapper();
+    extern "C" void BinkGetRealtime_wrapper();
+    extern "C" void BinkGetRects_wrapper();
+    extern "C" void BinkGetSummary_wrapper();
+    extern "C" void BinkGetTrackData_wrapper();
+    extern "C" void BinkGetTrackID_wrapper();
+    extern "C" void BinkGetTrackMaxSize_wrapper();
+    extern "C" void BinkGetTrackType_wrapper();
+    extern "C" void BinkGoto_wrapper();
+    extern "C" void BinkLogoAddress_wrapper();
+    extern "C" void BinkNextFrame_wrapper();
+    extern "C" void BinkOpen_wrapper();
+    extern "C" void BinkOpenDirectSound_wrapper();
+    extern "C" void BinkOpenMiles_wrapper();
+    extern "C" void BinkOpenTrack_wrapper();
+    extern "C" void BinkOpenWaveOut_wrapper();
+    extern "C" void BinkOpenWithOptions_wrapper();
+    extern "C" void BinkOpenXAudio2_wrapper();
+    extern "C" void BinkOpenXAudio27_wrapper();
+    extern "C" void BinkOpenXAudio28_wrapper();
+    extern "C" void BinkPause_wrapper();
+    extern "C" void BinkRegisterFrameBuffers_wrapper();
+    extern "C" void BinkRegisterGPUDataBuffers_wrapper();
+    extern "C" void BinkRequestStopAsyncThread_wrapper();
+    extern "C" void BinkRequestStopAsyncThreadsMulti_wrapper();
+    extern "C" void BinkService_wrapper();
+    extern "C" void BinkSetError_wrapper();
+    extern "C" void BinkSetFileOffset_wrapper();
+    extern "C" void BinkSetFrameRate_wrapper();
+    extern "C" void BinkSetIO_wrapper();
+    extern "C" void BinkSetIOSize_wrapper();
+    extern "C" void BinkSetMemory_wrapper();
+    extern "C" void BinkSetOSFileCallbacks_wrapper();
+    extern "C" void BinkSetPan_wrapper();
+    extern "C" void BinkSetSimulate_wrapper();
+    extern "C" void BinkSetSoundOnOff_wrapper();
+    extern "C" void BinkSetSoundSystem_wrapper();
+    extern "C" void BinkSetSoundSystem2_wrapper();
+    extern "C" void BinkSetSoundTrack_wrapper();
+    extern "C" void BinkSetSpeakerVolumes_wrapper();
+    extern "C" void BinkSetVideoOnOff_wrapper();
+    extern "C" void BinkSetVolume_wrapper();
+    extern "C" void BinkSetWillLoop_wrapper();
+    extern "C" void BinkShouldSkip_wrapper();
+    extern "C" void BinkStartAsyncThread_wrapper();
+    extern "C" void BinkUtilCPUs_wrapper();
+    extern "C" void BinkUtilFree_wrapper();
+    extern "C" void BinkUtilMalloc_wrapper();
+    extern "C" void BinkUtilMutexCreate_wrapper();
+    extern "C" void BinkUtilMutexDestroy_wrapper();
+    extern "C" void BinkUtilMutexLock_wrapper();
+    extern "C" void BinkUtilMutexLockTimeOut_wrapper();
+    extern "C" void BinkUtilMutexUnlock_wrapper();
+    extern "C" void BinkWait_wrapper();
+    extern "C" void BinkWaitStopAsyncThread_wrapper();
+    extern "C" void BinkWaitStopAsyncThreadsMulti_wrapper();
+    extern "C" void RADTimerRead_wrapper();
+#endif
 
 
 // Loads the original DLL from the default system directory
@@ -153,6 +241,82 @@ void load_original_dll()
 
     // Try to load the system DLL, if pointer empty
     if (!dll_chain_instance) dll_chain_instance = LoadLibrary(buffer);
+
+#ifndef USE_VERSION_DLL
+    // Fall back to a bundled copy of the original DLL, extracted next to our
+    // module. This lets the mod work even when the system directory does not
+    // contain bink2w64.dll (which is a game-specific library that is normally
+    // shipped alongside the game rather than installed system-wide).
+    if (!dll_chain_instance)
+    {
+        std::string fallback = std::string(".\\") + lib_name + ".orig.dll";
+        debug.print("    System DLL not found; trying bundled fallback: " + fallback + "\n");
+
+        if (!std::filesystem::exists(fallback))
+        {
+            debug.print("    Extracting embedded DLL resource to " + fallback + "\n");
+            HRSRC h_res = FindResourceA(dll_instance, "BINK2W64_DLL", (LPCSTR)RT_RCDATA);
+            if (h_res)
+            {
+                HGLOBAL h_data = LoadResource(dll_instance, h_res);
+                DWORD res_sz = SizeofResource(dll_instance, h_res);
+                LPVOID p_data = h_data ? LockResource(h_data) : nullptr;
+                // Blob format: 4-byte little-endian uncompressed size + XPRESS_HUFF stream.
+                if (h_data && res_sz > 4 && p_data)
+                {
+                    uint32_t uncompressed_sz = 0;
+                    memcpy(&uncompressed_sz, p_data, sizeof(uncompressed_sz));
+                    const BYTE* compressed = static_cast<const BYTE*>(p_data) + 4;
+                    SIZE_T compressed_sz = static_cast<SIZE_T>(res_sz) - 4;
+
+                    DECOMPRESSOR_HANDLE decompressor = NULL;
+                    if (CreateDecompressor(COMPRESS_ALGORITHM_XPRESS_HUFF, NULL, &decompressor))
+                    {
+                        std::vector<BYTE> out(uncompressed_sz);
+                        SIZE_T actual = 0;
+                        if (Decompress(decompressor, compressed, compressed_sz, out.data(), out.size(), &actual))
+                        {
+                            std::ofstream ofs(fallback, std::ios::binary | std::ios::trunc);
+                            if (ofs.good())
+                            {
+                                ofs.write(reinterpret_cast<const char*>(out.data()), actual);
+                                ofs.close();
+                                debug.print("    Wrote " + std::to_string(actual) + " bytes.\n");
+                            }
+                            else
+                            {
+                                debug.print("    Failed to open " + fallback + " for writing.\n");
+                            }
+                        }
+                        else
+                        {
+                            debug.print("    Decompress failed: " + std::to_string(GetLastError()) + "\n");
+                        }
+                        CloseDecompressor(decompressor);
+                    }
+                    else
+                    {
+                        debug.print("    CreateDecompressor failed: " + std::to_string(GetLastError()) + "\n");
+                    }
+                }
+                else
+                {
+                    debug.print("    Embedded DLL resource is empty or invalid.\n");
+                }
+            }
+            else
+            {
+                debug.print("    Embedded DLL resource not found.\n");
+            }
+        }
+        else
+        {
+            debug.print("    Fallback already exists; loading it.\n");
+        }
+
+        dll_chain_instance = LoadLibrary(fallback.c_str());
+    }
+#endif
 
     // Debug
     if (!dll_chain_instance)
