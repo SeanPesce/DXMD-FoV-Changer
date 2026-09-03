@@ -2,14 +2,14 @@
 **Author: Sean Pesce**  
 
 <p align="center">
-<img align="center" title="Example FoV presets" src="https://thumbs.gfycat.com/FavorableThoseEagle-size_restricted.gif" alt="Example FoV presets (GIF of several in-game screenshots)" width="450px">
+<img align="center" title="Example FoV presets" src="https://seanpesce.github.io/Portfolio/assets/img/showcase/dxmd-fov/01.gif" alt="Example FoV presets (GIF of several in-game screenshots)" width="450px">
 <br><br>
-<img align="center" title="Separate FoV for first-person hands" src="https://thumbs.gfycat.com/EqualDeliriousGyrfalcon-size_restricted.gif" alt="Demo of hands FoV (GIF of several in-game screenshots)" width="450px">
+<img align="center" title="Separate FoV for first-person hands" src="https://seanpesce.github.io/Portfolio/assets/img/showcase/dxmd-fov/02.gif" alt="Demo of hands FoV (GIF of several in-game screenshots)" width="450px">
 </p>  
 
 
 ## Overview  
-This mod enhances Field of View settings for [Deus Ex: Mankind Divided](http://store.steampowered.com/app/337000) and [Deus Ex: Breach](http://store.steampowered.com/app/555450). Players can set a default FoV in the configuration file and/or [change the FoV](https://www.youtube.com/watch?v=qWjd7HO216A) on the fly with configurable key-binds. Most notably, this mod enables higher & lower FoV values than those supported by the vanilla game, and lets the user [change the rendered FoV of the first-person hands separately](https://gfycat.com/EqualDeliriousGyrfalcon). Without a separate hands FoV, weapon animations can look awful on higher FoV settings (see the [showcase GIF](https://thumbs.gfycat.com/EqualDeliriousGyrfalcon-size_restricted.gif) above).  
+This mod enhances Field of View settings for [Deus Ex: Mankind Divided](http://store.steampowered.com/app/337000) and [Deus Ex: Breach](http://store.steampowered.com/app/555450). Players can set a default FoV in the configuration file and/or [change the FoV](https://www.youtube.com/watch?v=qWjd7HO216A) on the fly with configurable key-binds. Most notably, this mod enables higher & lower FoV values than those supported by the vanilla game, and lets the user [change the rendered FoV of the first-person hands separately](https://seanpesce.github.io/Portfolio/assets/img/showcase/dxmd-fov/02.gif). Without a separate hands FoV, weapon animations can look awful on higher FoV settings (see the [showcase GIF](https://seanpesce.github.io/Portfolio/assets/img/showcase/dxmd-fov/02.gif) above).  
 
 ## Installation  
 Copy **version.dll** and **DXMD_FOV.ini** into the `\retail\` directory (usually `C:\Program Files (x86)\Steam\SteamApps\common\Deus Ex Mankind Divided\retail`).  
